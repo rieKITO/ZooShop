@@ -1,0 +1,18 @@
+input_dir: ZooShop/Resources
+output_dir: ZooShop/Resources/Constants
+
+xcassets:
+  inputs: Colors/Colors.xcassets
+  outputs:
+    templateName: swift5
+    params:
+      enumName: Colors
+    output: Colors+Generated.swift
+
+strings:
+  inputs: Localization/ru.lproj/Localizable.strings
+  outputs:
+    templateName: structured-swift5
+    params:
+      enumName: L10n
+    output: Strings+Generated.swift
