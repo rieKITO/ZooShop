@@ -7,3 +7,9 @@
 */
 
 "Main.title" = "Зоомагазин";
+
+// TabBar
+"TabBar.category.main" = "Главная";
+"TabBar.category.catalog" = "Каталог";
+"TabBar.category.shops" = "Магазины";
+"TabBar.category.more" = "Ещё";

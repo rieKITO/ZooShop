@@ -8,22 +8,47 @@
 import SwiftUI
 
 struct HomeView: View {
+
+    @State
+    private var selectedTab: HomeTab = .main
+
     var body: some View {
         ZStack {
             Colors.Backgrounds.canvas.swiftUIColor
                 .ignoresSafeArea()
-            VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                Text("Hello, world!")
-            }
-            .padding()
+            tabContent
+                .padding()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            CustomTabBarView(tabs: HomeTab.allCases, selectedTab: $selectedTab)
+        }
+        .ignoresSafeArea(.container, edges: .bottom)
     }
+
 }
 
-#Preview {
+// MARK: - Subviews
+
+private extension HomeView {
+    
+    @ViewBuilder
+    private var tabContent: some View {
+        switch selectedTab {
+        case .main, .catalog, .shops, .more:
+            Text(selectedTab.title)
+        }
+    }
+    
+}
+
+// MARK: - Preview
+
+#Preview("Light Mode") {
+    HomeView()
+}
+
+#Preview("Dark Mode") {
     HomeView()
         .preferredColorScheme(.dark)
 }
