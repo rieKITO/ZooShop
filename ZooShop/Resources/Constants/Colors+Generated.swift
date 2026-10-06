@@ -23,7 +23,58 @@ internal typealias AssetColorTypeAlias = ColorAsset.Color
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Colors {
   internal enum Backgrounds {
-    internal static let main = ColorAsset(name: "Backgrounds/main")
+    internal static let accentSoft = ColorAsset(name: "Backgrounds/accentSoft")
+    internal static let canvas = ColorAsset(name: "Backgrounds/canvas")
+    internal static let controlTrack = ColorAsset(name: "Backgrounds/controlTrack")
+    internal static let surface = ColorAsset(name: "Backgrounds/surface")
+    internal static let toast = ColorAsset(name: "Backgrounds/toast")
+  }
+  internal enum Borders {
+    internal static let decorativeRing = ColorAsset(name: "Borders/decorativeRing")
+    internal static let focus = ColorAsset(name: "Borders/focus")
+    internal static let selected = ColorAsset(name: "Borders/selected")
+    internal static let subtle = ColorAsset(name: "Borders/subtle")
+  }
+  internal enum Brand {
+    internal static let primary = ColorAsset(name: "Brand/primary")
+    internal static let warmAccent = ColorAsset(name: "Brand/warmAccent")
+  }
+  internal enum Content {
+    internal static let accent = ColorAsset(name: "Content/accent")
+    internal static let onAccent = ColorAsset(name: "Content/onAccent")
+    internal static let onBanner = ColorAsset(name: "Content/onBanner")
+    internal static let onToast = ColorAsset(name: "Content/onToast")
+    internal static let primary = ColorAsset(name: "Content/primary")
+    internal static let secondary = ColorAsset(name: "Content/secondary")
+  }
+  internal enum Decorative {
+    internal static let articleMist = ColorAsset(name: "Decorative/articleMist")
+    internal static let articleSand = ColorAsset(name: "Decorative/articleSand")
+    internal static let bannerButton = ColorAsset(name: "Decorative/bannerButton")
+    internal static let categoryBird = ColorAsset(name: "Decorative/categoryBird")
+    internal static let categoryCat = ColorAsset(name: "Decorative/categoryCat")
+    internal static let categoryDog = ColorAsset(name: "Decorative/categoryDog")
+    internal static let categorySmallPet = ColorAsset(name: "Decorative/categorySmallPet")
+    internal static let promoPeach = ColorAsset(name: "Decorative/promoPeach")
+    internal static let promoSage = ColorAsset(name: "Decorative/promoSage")
+    internal static let sparkle = ColorAsset(name: "Decorative/sparkle")
+  }
+  internal enum Effects {
+    internal static let controlShadow = ColorAsset(name: "Effects/controlShadow")
+    internal static let modalScrim = ColorAsset(name: "Effects/modalScrim")
+    internal static let pinShadow = ColorAsset(name: "Effects/pinShadow")
+    internal static let productShadow = ColorAsset(name: "Effects/productShadow")
+    internal static let softShadow = ColorAsset(name: "Effects/softShadow")
+    internal static let switchShadow = ColorAsset(name: "Effects/switchShadow")
+  }
+  internal enum States {
+    internal static let destructive = ColorAsset(name: "States/destructive")
+    internal static let positive = ColorAsset(name: "States/positive")
+    internal static let rating = ColorAsset(name: "States/rating")
+    internal static let saleBackground = ColorAsset(name: "States/saleBackground")
+    internal static let saleForeground = ColorAsset(name: "States/saleForeground")
+    internal static let skeletonBase = ColorAsset(name: "States/skeletonBase")
+    internal static let skeletonHighlight = ColorAsset(name: "States/skeletonHighlight")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

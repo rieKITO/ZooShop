@@ -9,16 +9,21 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack {
+            Colors.Backgrounds.canvas.swiftUIColor
+                .ignoresSafeArea()
+            VStack {
+                Image(systemName: "globe")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                Text("Hello, world!")
+            }
+            .padding()
         }
-        .padding()
     }
 }
 
 #Preview {
     HomeView()
+        .preferredColorScheme(.dark)
 }
