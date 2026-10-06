@@ -15,14 +15,12 @@ internal enum L10n {
     ///   ZooShop
     /// 
     ///   Created by Aleksandr Potemkin on 04.10.2026.
-    internal static let title = L10n.tr("Localizable", "Main.title", fallback: "Зоомагазин")
+    internal static let title = L10n.tr("Localizable", "Main.title", fallback: "лапка")
   }
   internal enum TabBar {
     internal enum Category {
       /// Каталог
       internal static let catalog = L10n.tr("Localizable", "TabBar.category.catalog", fallback: "Каталог")
-      /// Избранное
-      internal static let favorite = L10n.tr("Localizable", "TabBar.category.favorite", fallback: "Избранное")
       /// Главная
       internal static let main = L10n.tr("Localizable", "TabBar.category.main", fallback: "Главная")
       /// Ещё

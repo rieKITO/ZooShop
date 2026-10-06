@@ -17,7 +17,6 @@ struct HomeView: View {
             Colors.Backgrounds.canvas.swiftUIColor
                 .ignoresSafeArea()
             tabContent
-                .padding()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .safeAreaInset(edge: .bottom, spacing: 0) {
@@ -35,7 +34,9 @@ private extension HomeView {
     @ViewBuilder
     private var tabContent: some View {
         switch selectedTab {
-        case .main, .catalog, .shops, .more:
+        case .main:
+            MainSectionView()
+        case .catalog, .shops, .more:
             Text(selectedTab.title)
         }
     }
