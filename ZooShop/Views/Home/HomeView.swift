@@ -32,7 +32,7 @@ struct HomeView: View {
 private extension HomeView {
     
     @ViewBuilder
-    private var tabContent: some View {
+    var tabContent: some View {
         switch selectedTab {
         case .main:
             MainSectionView()

@@ -40,7 +40,7 @@ struct CustomTabBarView<Tab: TabBarItem>: View {
 
 private extension CustomTabBarView {
 
-    private var tabItems: some View {
+    var tabItems: some View {
         HStack(alignment: .top) {
             ForEach(tabs, id: \.self) { tab in
                 VStack(spacing: 8) {
