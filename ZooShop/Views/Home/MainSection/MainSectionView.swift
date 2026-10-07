@@ -8,6 +8,30 @@
 import SwiftUI
 
 struct MainSectionView: View {
+    private let cards: [InfoCard] = [
+        InfoCard(
+            tag: "Осень с заботой",
+            title: "Большая забота. Маленькая цена.",
+            description: "До -20% на любимый корм для вашего питомца.",
+            backgroundColor: Colors.Decorative.promoPeach.swiftUIColor,
+            image: Image("dogCutout")
+        ),
+        InfoCard(
+            tag: "Для уютного дома",
+            title: "Уют для любимого питомца.",
+            description: "Лежанки, игрушки и всё для счастливых дней дома.",
+            backgroundColor: Colors.Decorative.promoSage.swiftUIColor,
+            image: Image("hamsterCutout")
+        ),
+        InfoCard(
+            tag: "Каждый день вместе",
+            title: "Время для прогулки!",
+            description: "Подберите аксессуары для прогулок с вашим другом.",
+            backgroundColor: Colors.Decorative.articleMist.swiftUIColor,
+            image: Image("catCutout")
+        )
+    ]
+
     var body: some View {
         ZStack {
             Colors.Backgrounds.canvas.swiftUIColor
@@ -17,7 +41,8 @@ struct MainSectionView: View {
                 VStack(spacing: 0) {
                     title
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    
+                    infoCards
+                        .padding(.top, 8)
                     Spacer()
                 }
                 .padding(.horizontal, 16)
@@ -31,7 +56,7 @@ struct MainSectionView: View {
 
 private extension MainSectionView {
     
-    private var title: some View {
+    var title: some View {
         HStack(spacing: 0) {
             Image(systemName: "pawprint.fill")
                 .font(.title2)
@@ -44,6 +69,10 @@ private extension MainSectionView {
         }
         .font(.title)
         .fontWeight(.heavy)
+    }
+    
+    var infoCards: some View {
+        InfoCardCarouselView(cards: cards, size: .big)
     }
     
 }
