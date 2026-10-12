@@ -13,3 +13,13 @@
 "TabBar.category.catalog" = "Каталог";
 "TabBar.category.shops" = "Магазины";
 "TabBar.category.more" = "Ещё";
+"Favorites.add" = "Добавить в избранное";
+"Favorites.remove" = "Убрать из избранного";
+"Favorites.error.missingModel" = "Модель Core Data не найдена в приложении.";
+"Common.retry" = "Повторить";
+"Common.ok" = "ОК";
+
+"Favorites.title" = "Избранные товары";
+"Favorites.empty" = "Пока нет избранных товаров. Добавьте их, нажав на сердечко в каталоге.";
+// Error
+"Common.error.title" = "Что-то пошло не так";

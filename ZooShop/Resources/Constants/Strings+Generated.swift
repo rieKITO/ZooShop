@@ -10,6 +10,29 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  internal enum Common {
+    /// ОК
+    internal static let ok = L10n.tr("Localizable", "Common.ok", fallback: "ОК")
+    /// Повторить
+    internal static let retry = L10n.tr("Localizable", "Common.retry", fallback: "Повторить")
+    internal enum Error {
+      /// Что-то пошло не так
+      internal static let title = L10n.tr("Localizable", "Common.error.title", fallback: "Что-то пошло не так")
+    }
+  }
+  internal enum Favorites {
+    /// Добавить в избранное
+    internal static let add = L10n.tr("Localizable", "Favorites.add", fallback: "Добавить в избранное")
+    /// Пока нет избранных товаров. Добавьте их, нажав на сердечко в каталоге.
+    internal static let empty = L10n.tr("Localizable", "Favorites.empty", fallback: "Пока нет избранных товаров. Добавьте их, нажав на сердечко в каталоге.")
+    /// Убрать из избранного
+    internal static let remove = L10n.tr("Localizable", "Favorites.remove", fallback: "Убрать из избранного")
+    /// Избранные товары
+    internal static let title = L10n.tr("Localizable", "Favorites.title", fallback: "Избранные товары")
+    internal enum Error {
+      /// Модель Core Data не найдена в приложении.
+      internal static let missingModel = L10n.tr("Localizable", "Favorites.error.missingModel", fallback: "Модель Core Data не найдена в приложении.")
+    }
   internal enum Main {
     /// Localizable.strings
     ///   ZooShop
