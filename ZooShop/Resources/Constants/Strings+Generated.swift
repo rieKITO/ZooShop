@@ -10,6 +10,24 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  internal enum Catalog {
+    /// В каталоге пока нет товаров
+    internal static let empty = L10n.tr("Localizable", "Catalog.empty", fallback: "В каталоге пока нет товаров")
+    internal enum Error {
+      /// Не удалось загрузить товары: HTTP %d.
+      internal static func httpStatus(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "Catalog.error.httpStatus", p1, fallback: "Не удалось загрузить товары: HTTP %d.")
+      }
+      /// ID товаров должны быть непустыми и уникальными.
+      internal static let invalidIdentifiers = L10n.tr("Localizable", "Catalog.error.invalidIdentifiers", fallback: "ID товаров должны быть непустыми и уникальными.")
+      /// В каталоге неверный рейтинг или адрес изображения.
+      internal static let invalidProductData = L10n.tr("Localizable", "Catalog.error.invalidProductData", fallback: "В каталоге неверный рейтинг или адрес изображения.")
+      /// Сервер вернул некорректный ответ.
+      internal static let invalidResponse = L10n.tr("Localizable", "Catalog.error.invalidResponse", fallback: "Сервер вернул некорректный ответ.")
+      /// Не удалось загрузить товары
+      internal static let title = L10n.tr("Localizable", "Catalog.error.title", fallback: "Не удалось загрузить товары")
+    }
+  }
   internal enum Common {
     /// ОК
     internal static let ok = L10n.tr("Localizable", "Common.ok", fallback: "ОК")
@@ -33,12 +51,23 @@ internal enum L10n {
       /// Модель Core Data не найдена в приложении.
       internal static let missingModel = L10n.tr("Localizable", "Favorites.error.missingModel", fallback: "Модель Core Data не найдена в приложении.")
     }
+  }
   internal enum Main {
     /// Localizable.strings
     ///   ZooShop
     /// 
     ///   Created by Aleksandr Potemkin on 04.10.2026.
     internal static let title = L10n.tr("Localizable", "Main.title", fallback: "лапка")
+  }
+  internal enum Product {
+    /// Рейтинг %.1f из 5
+    internal static func rating(_ p1: Float) -> String {
+      return L10n.tr("Localizable", "Product.rating", p1, fallback: "Рейтинг %.1f из 5")
+    }
+    internal enum Image {
+      /// Повторить загрузку
+      internal static let retry = L10n.tr("Localizable", "Product.image.retry", fallback: "Повторить загрузку")
+    }
   }
   internal enum TabBar {
     internal enum Category {

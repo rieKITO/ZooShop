@@ -11,8 +11,17 @@ struct ProductItemView: View {
     
     // MARK: - Init Properties
     
-    @Binding
-    var product: ProductItem
+    let product: ProductItem
+    let isFavorite: Bool
+    var isFavoriteEnabled: Bool = true
+    var image: Image? = nil
+    let onToggleFavorite: () -> Void
+    
+    // MARK: - State
+
+    @State
+    private var imageReloadID = UUID()
+
     
     // MARK: - Computed Properties
 
@@ -30,6 +39,7 @@ struct ProductItemView: View {
         VStack(alignment: .leading, spacing: 0) {
             productImage
             productPrice
+                .padding(.top, 8)
             productInfo
             productTasteAndWeight
         }
@@ -46,10 +56,7 @@ private extension ProductItemView {
             .fill(Colors.Backgrounds.surface.swiftUIColor)
             .aspectRatio(1, contentMode: .fit)
             .overlay {
-                product.image
-                    .resizable()
-                    .scaledToFit()
-                    .padding(20)
+                productImageContent
             }
             .overlay(alignment: .topLeading) {
                 if let discount = product.discount, discount > 0 {
@@ -71,14 +78,58 @@ private extension ProductItemView {
             }
     }
 
+    @ViewBuilder
+    var productImageContent: some View {
+        if let image {
+            image
+                .resizable()
+                .scaledToFit()
+                .padding(20)
+                .padding(.top, 10)
+        } else {
+            remoteProductImage
+        }
+    }
+
+    var remoteProductImage: some View {
+        AsyncImage(url: product.imageURL) { phase in
+            switch phase {
+            case .empty:
+                ProgressView()
+            case .success(let image):
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .padding(20)
+                    .padding(.top, 10)
+            case .failure:
+                Button {
+                    imageReloadID = UUID()
+                } label: {
+                    VStack(spacing: 6) {
+                        Image(systemName: "photo.badge.exclamationmark")
+                            .font(.title2)
+                        Text("Product.image.retry")
+                            .font(.caption2)
+                    }
+                    .foregroundStyle(Colors.Content.secondary.swiftUIColor)
+                }
+                .buttonStyle(.plain)
+            @unknown default:
+                Image(systemName: "photo")
+            }
+        }
+        .id(imageReloadID)
+    }
+
     var favoriteButton: some View {
         Button {
-            product.isFavorite.toggle()
+            onToggleFavorite()
         } label: {
-            Image(systemName: product.isFavorite ? "heart.fill" : "heart")
+            Image(systemName: isFavorite ? "heart.fill" : "heart")
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundStyle(
-                    product.isFavorite
+                    isFavorite
                         ? Colors.Brand.primary.swiftUIColor
                         : Colors.Content.secondary.swiftUIColor
                 )
@@ -88,6 +139,8 @@ private extension ProductItemView {
                 .contentShape(Circle())
         }
         .buttonStyle(.plain)
+        .disabled(!isFavoriteEnabled)
+        .accessibilityLabel(Text(isFavorite ? "Favorites.remove" : "Favorites.add"))
     }
     
     var productPrice: some View {
@@ -133,29 +186,17 @@ private extension ProductItemView {
 
 // MARK: - Preview
 
+#if DEBUG
 private struct ProductItemsPreview: View {
 
     @State
-    private var discountedProduct = ProductItem(
-        name: "MONGe",
-        description: "Корм для стерилизованных кошек",
-        price: 1890000,
-        taste: "Лосось",
-        weight: 1.5,
-        image: Image("catCutout"),
-        isFavorite: true,
-        discount: 17
-    )
+    private var isDiscountedFavorite = true
     
     @State
-    private var regularProduct = ProductItem(
-        name: "GRANDORF",
-        description: "Корм для взрослых собак",
-        price: 1890,
-        taste: "Ягненок и рис",
-        weight: 3,
-        image: Image("dogCutout")
-    )
+    private var isRegularFavorite = false
+
+    private let discountedProduct = PreviewProductRepository.products[0]
+    private let regularProduct = PreviewProductRepository.products[1]
 
     var body: some View {
         ZStack {
@@ -163,8 +204,12 @@ private struct ProductItemsPreview: View {
                 .ignoresSafeArea()
 
             HStack(alignment: .top, spacing: 16) {
-                ProductItemView(product: $discountedProduct)
-                ProductItemView(product: $regularProduct)
+                ProductItemView(product: discountedProduct, isFavorite: isDiscountedFavorite, image: Image("PreviewProduct")) {
+                    isDiscountedFavorite.toggle()
+                }
+                ProductItemView(product: regularProduct, isFavorite: isRegularFavorite, image: Image("PreviewProduct")) {
+                    isRegularFavorite.toggle()
+                }
             }
             .padding(.horizontal, 16)
         }
@@ -179,3 +224,4 @@ private struct ProductItemsPreview: View {
     ProductItemsPreview()
         .preferredColorScheme(.dark)
 }
+#endif

@@ -13,6 +13,12 @@
 "TabBar.category.catalog" = "Каталог";
 "TabBar.category.shops" = "Магазины";
 "TabBar.category.more" = "Ещё";
+
+// Catalog and favorites
+"Catalog.error.title" = "Не удалось загрузить товары";
+"Catalog.error.invalidIdentifiers" = "ID товаров должны быть непустыми и уникальными.";
+"Catalog.error.invalidResponse" = "Сервер вернул некорректный ответ.";
+"Catalog.error.httpStatus" = "Не удалось загрузить товары: HTTP %d.";
 "Favorites.add" = "Добавить в избранное";
 "Favorites.remove" = "Убрать из избранного";
 "Favorites.error.missingModel" = "Модель Core Data не найдена в приложении.";
@@ -21,5 +27,11 @@
 
 "Favorites.title" = "Избранные товары";
 "Favorites.empty" = "Пока нет избранных товаров. Добавьте их, нажав на сердечко в каталоге.";
+"Catalog.empty" = "В каталоге пока нет товаров";
+
+"Product.image.retry" = "Повторить загрузку";
+"Product.rating" = "Рейтинг %.1f из 5";
+"Catalog.error.invalidProductData" = "В каталоге неверный рейтинг или адрес изображения.";
+
 // Error
 "Common.error.title" = "Что-то пошло не так";
