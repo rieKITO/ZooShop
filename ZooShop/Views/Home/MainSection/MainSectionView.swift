@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct MainSectionView: View {
+    
+    // MARK: - Init Properties
+    
+    let viewModel: MainSectionViewModel
+    var productImage: Image? = nil
+
     private let cards: [InfoCard] = [
         InfoCard(
             tag: "Осень с заботой",
@@ -31,6 +37,8 @@ struct MainSectionView: View {
             image: Image("catCutout")
         )
     ]
+    
+    // MARK: - Body
 
     var body: some View {
         ZStack {
@@ -38,16 +46,21 @@ struct MainSectionView: View {
                 .ignoresSafeArea()
             
             ScrollView {
-                VStack(spacing: 0) {
+                VStack(alignment: .leading, spacing: 0) {
                     title
                         .frame(maxWidth: .infinity, alignment: .leading)
                     infoCards
                         .padding(.top, 8)
-                    Spacer()
+                    favoriteProducts
+                        .padding(.top, 24)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 16)
             }
-            .clipped()
+            .scrollClipDisabled()
+        }
+        .task {
+            await viewModel.loadIfNeeded()
         }
     }
 }
@@ -56,6 +69,55 @@ struct MainSectionView: View {
 
 private extension MainSectionView {
     
+    @ViewBuilder
+    var favoriteProducts: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text(L10n.Favorites.title)
+                .font(.title2)
+                .fontWeight(.bold)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundStyle(Colors.Content.primary.swiftUIColor)
+
+            if viewModel.isLoading {
+                ProgressView()
+                    .frame(maxWidth: .infinity)
+            } else if let catalogError = viewModel.errorMessage {
+                ErrorStateView(
+                    title: L10n.Catalog.Error.title,
+                    description: catalogError,
+                    buttonLabel: L10n.Common.retry
+                ) {
+                    Task { await viewModel.retry() }
+                }
+            } else if viewModel.favoriteProducts.isEmpty {
+                Text(L10n.Favorites.empty)
+                    .foregroundStyle(Colors.Content.secondary.swiftUIColor)
+            } else {
+                LazyVGrid(
+                    columns:
+                        [
+                            GridItem(.flexible(), alignment: .top),
+                            GridItem(.flexible(), alignment: .top)
+                        ],
+                    spacing: 20
+                ) {
+                    ForEach(viewModel.favoriteProducts) { product in
+                        ProductItemView(
+                            product: product,
+                            isFavorite: viewModel.favorites.contains(product.id),
+                            isFavoriteEnabled: viewModel.favorites.isAvailable,
+                            image: productImage
+                        ) {
+                            viewModel.toggleFavorite(product.id)
+                        }
+                    }
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.bottom, 24)
+    }
+
     var title: some View {
         HStack(spacing: 0) {
             Image(systemName: "pawprint.fill")
@@ -79,6 +141,25 @@ private extension MainSectionView {
 
 // MARK: - Preview
 
-#Preview {
-    MainSectionView()
+#if DEBUG
+#Preview("Light Theme") {
+    MainSectionView(
+        viewModel: MainSectionViewModel(
+            catalog: CatalogViewModel(repository: PreviewProductRepository()),
+            favorites: FavoritesViewModel(service: PreviewFavoritesService())
+    ),
+        productImage: Image("PreviewProduct")
+    )
 }
+
+#Preview("Dark Theme") {
+    MainSectionView(
+        viewModel: MainSectionViewModel(
+            catalog: CatalogViewModel(repository: PreviewProductRepository()),
+            favorites: FavoritesViewModel(service: PreviewFavoritesService())
+    ),
+        productImage: Image("PreviewProduct")
+    )
+    .preferredColorScheme(.dark)
+}
+#endif

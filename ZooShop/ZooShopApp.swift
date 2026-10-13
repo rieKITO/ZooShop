@@ -9,9 +9,18 @@ import SwiftUI
 
 @main
 struct ZooShopApp: App {
+    
+    // MARK: - State
+    
+    @State
+    private var viewModel = AppDI.makeMainSectionViewModel()
+
+    // MARK: - Body
+
     var body: some Scene {
         WindowGroup {
             HomeView()
+                .environment(viewModel)
         }
     }
 }

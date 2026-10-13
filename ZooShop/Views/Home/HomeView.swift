@@ -9,8 +9,21 @@ import SwiftUI
 
 struct HomeView: View {
 
+    // MARK: - Init Properties
+
+    var productImage: Image? = nil
+    
+    // MARK: - Environment
+    
+    @Environment(MainSectionViewModel.self)
+    private var viewModel
+    
+    // MARK: - State
+
     @State
     private var selectedTab: HomeTab = .main
+    
+    // MARK: - Body
 
     var body: some View {
         ZStack {
@@ -23,6 +36,20 @@ struct HomeView: View {
             CustomTabBarView(tabs: HomeTab.allCases, selectedTab: $selectedTab)
         }
         .ignoresSafeArea(.container, edges: .bottom)
+        .alert(L10n.Common.Error.title, isPresented: Binding(
+            get: {
+                viewModel.favorites.errorMessage != nil
+            },
+            set: {
+                if !$0 {
+                    viewModel.favorites.errorMessage = nil
+                }
+            }
+        )) {
+            Button(L10n.Common.ok, role: .cancel) { }
+        } message: {
+            Text(viewModel.favorites.errorMessage ?? "")
+        }
     }
 
 }
@@ -35,8 +62,10 @@ private extension HomeView {
     var tabContent: some View {
         switch selectedTab {
         case .main:
-            MainSectionView()
-        case .catalog, .shops, .more:
+            MainSectionView(viewModel: viewModel, productImage: productImage)
+        case .catalog:
+            CatalogView(viewModel: viewModel.catalog, favorites: viewModel.favorites, productImage: productImage)
+        case .shops, .more:
             Text(selectedTab.title)
         }
     }
@@ -45,11 +74,19 @@ private extension HomeView {
 
 // MARK: - Preview
 
-#Preview("Light Mode") {
-    HomeView()
+#if DEBUG
+#Preview("Light Theme") {
+    HomeView(productImage: Image("PreviewProduct"))
+        .environment(MainSectionViewModel(
+            catalog: CatalogViewModel(repository: PreviewProductRepository()), favorites: FavoritesViewModel(service: PreviewFavoritesService())
+        ))
 }
 
-#Preview("Dark Mode") {
-    HomeView()
+#Preview("Dark Theme") {
+    HomeView(productImage: Image("PreviewProduct"))
+        .environment(MainSectionViewModel(
+            catalog: CatalogViewModel(repository: PreviewProductRepository()), favorites: FavoritesViewModel(service: PreviewFavoritesService())
+        ))
         .preferredColorScheme(.dark)
 }
+#endif

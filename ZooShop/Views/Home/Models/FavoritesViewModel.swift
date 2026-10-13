@@ -38,25 +38,11 @@ final class FavoritesViewModel {
         }
     }
 
-    private init(error: Error) {
+    init(unavailableBecause error: Error) {
         errorMessage = error.localizedDescription
     }
     
     // MARK: - Public Methods
-
-    static func make(
-        inMemory: Bool = false,
-        bundle: Bundle = .main,
-        storeURL: URL? = nil
-    ) -> FavoritesViewModel {
-        do {
-            return FavoritesViewModel(service: try CoreDataFavoritesService(
-                inMemory: inMemory, bundle: bundle, storeURL: storeURL
-            ))
-        } catch {
-            return FavoritesViewModel(error: error)
-        }
-    }
 
     func contains(_ productID: String) -> Bool {
         productIDs.contains(productID)
