@@ -45,8 +45,8 @@ internal enum L10n {
     internal static let empty = L10n.tr("Localizable", "Favorites.empty", fallback: "Пока нет избранных товаров. Добавьте их, нажав на сердечко в каталоге.")
     /// Убрать из избранного
     internal static let remove = L10n.tr("Localizable", "Favorites.remove", fallback: "Убрать из избранного")
-    /// Избранные товары
-    internal static let title = L10n.tr("Localizable", "Favorites.title", fallback: "Избранные товары")
+    /// Любимые товары
+    internal static let title = L10n.tr("Localizable", "Favorites.title", fallback: "Любимые товары")
     internal enum Error {
       /// Модель Core Data не найдена в приложении.
       internal static let missingModel = L10n.tr("Localizable", "Favorites.error.missingModel", fallback: "Модель Core Data не найдена в приложении.")
