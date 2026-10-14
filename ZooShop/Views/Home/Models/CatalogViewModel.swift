@@ -5,6 +5,7 @@
 //  Created by Aleksandr Potemkin on 10.10.2026.
 //
 
+import Combine
 import Foundation
 import Observation
 
@@ -27,7 +28,7 @@ final class CatalogViewModel {
     private var hasLoaded = false
 
     @ObservationIgnored
-    private var loadingTask: Task<Void, Never>?
+    private var loadingSubscription: AnyCancellable?
     
     // MARK: - Initialization
 
@@ -37,43 +38,39 @@ final class CatalogViewModel {
     
     // MARK: - Public Methods
 
-    func loadIfNeeded() async {
+    func loadIfNeeded() {
         guard !hasLoaded else {
             return
         }
 
-        await loadProducts()
+        loadProducts()
     }
 
-    func loadProducts() async {
-        if let loadingTask {
-            await loadingTask.value
+    func loadProducts() {
+        guard loadingSubscription == nil else {
             return
         }
 
-        let task = Task { [weak self] in
-            guard let self else {
-                return
-            }
-            
-            isLoading = true
-            errorMessage = nil
-            
-            defer {
-                isLoading = false
-                loadingTask = nil
-            }
-            
-            do {
-                products = try await repository.loadProducts()
-                hasLoaded = true
-            } catch {
-                errorMessage = error.localizedDescription
-            }
-        }
+        isLoading = true
+        errorMessage = nil
 
-        loadingTask = task
-        await task.value
+        loadingSubscription = repository.loadProducts()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self else {
+                    return
+                }
+
+                isLoading = false
+                loadingSubscription = nil
+
+                if case .failure(let error) = completion {
+                    errorMessage = error.localizedDescription
+                }
+            } receiveValue: { [weak self] products in
+                self?.products = products
+                self?.hasLoaded = true
+            }
     }
 
 }

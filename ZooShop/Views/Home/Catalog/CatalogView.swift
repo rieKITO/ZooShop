@@ -40,8 +40,8 @@ struct CatalogView: View {
             }
         }
         .foregroundStyle(Colors.Content.primary.swiftUIColor)
-        .task {
-            await viewModel.loadIfNeeded()
+        .onAppear {
+            viewModel.loadIfNeeded()
         }
     }
 }
@@ -60,7 +60,7 @@ private extension CatalogView {
                 description: errorMessage,
                 buttonLabel: L10n.Common.retry
             ) {
-                Task { await viewModel.loadProducts() }
+                viewModel.loadProducts()
             }
         } else if viewModel.products.isEmpty {
             Text(L10n.Catalog.empty)

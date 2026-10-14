@@ -6,6 +6,7 @@
 //
 
 #if DEBUG
+import Combine
 import Foundation
 
 @MainActor
@@ -52,8 +53,10 @@ struct PreviewProductRepository: ProductRepository {
     
     // MARK: - Public Methods
 
-    func loadProducts() async throws -> [ProductItem] {
-        Self.products
+    func loadProducts() -> AnyPublisher<[ProductItem], Error> {
+        Just(Self.products)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
     }
 }
 #endif

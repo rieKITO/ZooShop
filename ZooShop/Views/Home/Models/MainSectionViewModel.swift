@@ -39,12 +39,12 @@ final class MainSectionViewModel {
 
     // MARK: - Public Methods
 
-    func loadIfNeeded() async {
-        await catalog.loadIfNeeded()
+    func loadIfNeeded() {
+        catalog.loadIfNeeded()
     }
 
-    func retry() async {
-        await catalog.loadProducts()
+    func retry() {
+        catalog.loadProducts()
     }
 
     func toggleFavorite(_ productID: String) {

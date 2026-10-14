@@ -59,8 +59,8 @@ struct MainSectionView: View {
             }
             .scrollClipDisabled()
         }
-        .task {
-            await viewModel.loadIfNeeded()
+        .onAppear {
+            viewModel.loadIfNeeded()
         }
     }
 }
@@ -87,7 +87,7 @@ private extension MainSectionView {
                     description: catalogError,
                     buttonLabel: L10n.Common.retry
                 ) {
-                    Task { await viewModel.retry() }
+                    viewModel.retry()
                 }
             } else if viewModel.favoriteProducts.isEmpty {
                 Text(L10n.Favorites.empty)
