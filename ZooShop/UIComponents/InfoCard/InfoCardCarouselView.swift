@@ -27,8 +27,6 @@ struct InfoCardCarouselView: View {
                             .padding(.horizontal, pageSpacing / 2)
                     }
                 }
-                .fixedSize(horizontal: false, vertical: true)
-                .hidden()
                 .overlay {
                     TabView(selection: $selectedPage) {
                         ForEach(cards.indices, id: \.self) { index in

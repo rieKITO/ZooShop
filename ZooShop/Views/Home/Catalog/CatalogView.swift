@@ -19,15 +19,14 @@ struct CatalogView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text(L10n.TabBar.Category.catalog)
-                .font(.title)
-                .fontWeight(.bold)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 16)
-                .padding(.top, 24)
-
             GeometryReader { geometry in
                 ScrollView {
+                    Text(L10n.TabBar.Category.catalog)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 16)
+                        .padding(.top, 24)
                     catalogContent
                         .frame(maxWidth: .infinity)
                         .frame(
