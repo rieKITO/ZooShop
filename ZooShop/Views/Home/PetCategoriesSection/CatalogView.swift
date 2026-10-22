@@ -13,35 +13,33 @@ struct CatalogView: View {
     
     let viewModel: CatalogViewModel
     let favorites: FavoritesViewModel
-    var productImage: Image? = nil
+    var animalType: ProductItem.AnimalType? = nil
     
     // MARK: - Body
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            GeometryReader { geometry in
-                ScrollView {
-                    Text(L10n.TabBar.Category.catalog)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal, 16)
-                        .padding(.top, 24)
-                    catalogContent
-                        .frame(maxWidth: .infinity)
-                        .frame(
-                            minHeight: max(0, geometry.size.height - 24),
-                            alignment: viewModel.errorMessage != nil && !viewModel.isLoading ? .center : .top
-                        )
-                        .padding(.horizontal, 16)
-                        .padding(.bottom, 24)
+        ZStack {
+            Colors.Backgrounds.canvas.swiftUIColor
+                .ignoresSafeArea()
+            
+            VStack(alignment: .leading, spacing: 16) {
+                GeometryReader { geometry in
+                    ScrollView {
+                        catalogContent
+                            .frame(maxWidth: .infinity)
+                            .frame(
+                                minHeight: max(0, geometry.size.height - 24),
+                                alignment: viewModel.errorMessage != nil && !viewModel.isLoading ? .center : .top
+                            )
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 24)
+                    }
                 }
-                .scrollClipDisabled()
             }
-        }
-        .foregroundStyle(Colors.Content.primary.swiftUIColor)
-        .onAppear {
-            viewModel.loadIfNeeded()
+            .foregroundStyle(Colors.Content.primary.swiftUIColor)
+            .onAppear {
+                viewModel.loadIfNeeded()
+            }
         }
     }
 }
@@ -62,12 +60,16 @@ private extension CatalogView {
             ) {
                 viewModel.loadProducts()
             }
-        } else if viewModel.products.isEmpty {
+        } else if filteredProducts.isEmpty {
             Text(L10n.Catalog.empty)
                 .frame(maxWidth: .infinity, alignment: .leading)
         } else {
             productsGrid
         }
+    }
+
+    var filteredProducts: [ProductItem] {
+        viewModel.products.filter { animalType == nil || $0.animalType == animalType }
     }
 
     var productsGrid: some View {
@@ -79,12 +81,11 @@ private extension CatalogView {
                 ],
             spacing: 20
         ) {
-            ForEach(viewModel.products) { product in
+            ForEach(filteredProducts) { product in
                 ProductItemView(
                     product: product,
                     isFavorite: favorites.contains(product.id),
-                    isFavoriteEnabled: favorites.isAvailable,
-                    image: productImage
+                    isFavoriteEnabled: favorites.isAvailable
                 ) {
                     favorites.toggle(product.id)
                 }
@@ -96,7 +97,6 @@ private extension CatalogView {
 
 // MARK: - Preview
 
-#if DEBUG
 #Preview("Light Theme") {
     ZStack {
         Colors.Backgrounds.canvas.swiftUIColor
@@ -104,8 +104,7 @@ private extension CatalogView {
         
         CatalogView(
             viewModel: CatalogViewModel(repository: PreviewProductRepository()),
-            favorites: FavoritesViewModel(service: PreviewFavoritesService()),
-            productImage: Image("PreviewProduct")
+            favorites: FavoritesViewModel(service: PreviewFavoritesService())
         )
     }
 }
@@ -117,10 +116,8 @@ private extension CatalogView {
         
         CatalogView(
             viewModel: CatalogViewModel(repository: PreviewProductRepository()),
-            favorites: FavoritesViewModel(service: PreviewFavoritesService()),
-            productImage: Image("PreviewProduct")
+            favorites: FavoritesViewModel(service: PreviewFavoritesService())
         )
     }
     .preferredColorScheme(.dark)
 }
-#endif

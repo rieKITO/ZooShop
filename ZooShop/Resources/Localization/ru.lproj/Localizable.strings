@@ -35,3 +35,16 @@
 
 // Error
 "Common.error.title" = "Что-то пошло не так";
+
+// Pet categories
+"PetCategories.title" = "Для вашего питомца";
+"PetCategories.subtitle" = "Забота начинается с правильного выбора";
+"PetCategories.note" = "Подберём питание для каждого питомца";
+"PetCategories.dog.title" = "Собаки";
+"PetCategories.dog.subtitle" = "Сухие и влажные корма для собак";
+"PetCategories.cat.title" = "Кошки";
+"PetCategories.cat.subtitle" = "Питание для счастливого мурчания";
+"PetCategories.smallPet.title" = "Грызуны";
+"PetCategories.smallPet.subtitle" = "Все для наших маленьких друзей";
+"PetCategories.bird.title" = "Птицы";
+"PetCategories.bird.subtitle" = "Корма и зерновые смеси для птиц";

@@ -59,6 +59,38 @@ internal enum L10n {
     ///   Created by Aleksandr Potemkin on 04.10.2026.
     internal static let title = L10n.tr("Localizable", "Main.title", fallback: "лапка")
   }
+  internal enum PetCategories {
+    /// Подберём питание для каждого питомца
+    internal static let note = L10n.tr("Localizable", "PetCategories.note", fallback: "Подберём питание для каждого питомца")
+    /// Забота начинается с правильного выбора
+    internal static let subtitle = L10n.tr("Localizable", "PetCategories.subtitle", fallback: "Забота начинается с правильного выбора")
+    /// Для вашего питомца
+    internal static let title = L10n.tr("Localizable", "PetCategories.title", fallback: "Для вашего питомца")
+    internal enum Bird {
+      /// Корма и зерновые смеси для птиц
+      internal static let subtitle = L10n.tr("Localizable", "PetCategories.bird.subtitle", fallback: "Корма и зерновые смеси для птиц")
+      /// Птицы
+      internal static let title = L10n.tr("Localizable", "PetCategories.bird.title", fallback: "Птицы")
+    }
+    internal enum Cat {
+      /// Питание для счастливого мурчания
+      internal static let subtitle = L10n.tr("Localizable", "PetCategories.cat.subtitle", fallback: "Питание для счастливого мурчания")
+      /// Кошки
+      internal static let title = L10n.tr("Localizable", "PetCategories.cat.title", fallback: "Кошки")
+    }
+    internal enum Dog {
+      /// Сухие и влажные корма для собак
+      internal static let subtitle = L10n.tr("Localizable", "PetCategories.dog.subtitle", fallback: "Сухие и влажные корма для собак")
+      /// Собаки
+      internal static let title = L10n.tr("Localizable", "PetCategories.dog.title", fallback: "Собаки")
+    }
+    internal enum SmallPet {
+      /// Все для наших маленьких друзей
+      internal static let subtitle = L10n.tr("Localizable", "PetCategories.smallPet.subtitle", fallback: "Все для наших маленьких друзей")
+      /// Грызуны
+      internal static let title = L10n.tr("Localizable", "PetCategories.smallPet.title", fallback: "Грызуны")
+    }
+  }
   internal enum Product {
     /// Рейтинг %.1f из 5
     internal static func rating(_ p1: Float) -> String {
