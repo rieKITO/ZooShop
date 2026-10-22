@@ -14,7 +14,6 @@ struct ProductItemView: View {
     let product: ProductItem
     let isFavorite: Bool
     var isFavoriteEnabled: Bool = true
-    var image: Image? = nil
     let onToggleFavorite: () -> Void
     
     // MARK: - State
@@ -56,7 +55,7 @@ private extension ProductItemView {
             .fill(Colors.Backgrounds.surface.swiftUIColor)
             .aspectRatio(1, contentMode: .fit)
             .overlay {
-                productImageContent
+                remoteProductImage
             }
             .overlay(alignment: .topLeading) {
                 if let discount = product.discount, discount > 0 {
@@ -76,19 +75,6 @@ private extension ProductItemView {
                 favoriteButton
                     .padding(6)
             }
-    }
-
-    @ViewBuilder
-    var productImageContent: some View {
-        if let image {
-            image
-                .resizable()
-                .scaledToFit()
-                .padding(20)
-                .padding(.top, 10)
-        } else {
-            remoteProductImage
-        }
     }
 
     var remoteProductImage: some View {
@@ -204,10 +190,10 @@ private struct ProductItemsPreview: View {
                 .ignoresSafeArea()
 
             HStack(alignment: .top, spacing: 16) {
-                ProductItemView(product: discountedProduct, isFavorite: isDiscountedFavorite, image: Image("PreviewProduct")) {
+                ProductItemView(product: discountedProduct, isFavorite: isDiscountedFavorite) {
                     isDiscountedFavorite.toggle()
                 }
-                ProductItemView(product: regularProduct, isFavorite: isRegularFavorite, image: Image("PreviewProduct")) {
+                ProductItemView(product: regularProduct, isFavorite: isRegularFavorite) {
                     isRegularFavorite.toggle()
                 }
             }

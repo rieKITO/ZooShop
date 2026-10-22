@@ -12,7 +12,6 @@ struct MainSectionView: View {
     // MARK: - Init Properties
     
     let viewModel: MainSectionViewModel
-    var productImage: Image? = nil
 
     private let cards: [InfoCard] = [
         InfoCard(
@@ -105,8 +104,7 @@ private extension MainSectionView {
                         ProductItemView(
                             product: product,
                             isFavorite: viewModel.favorites.contains(product.id),
-                            isFavoriteEnabled: viewModel.favorites.isAvailable,
-                            image: productImage
+                            isFavoriteEnabled: viewModel.favorites.isAvailable
                         ) {
                             viewModel.toggleFavorite(product.id)
                         }
@@ -141,14 +139,12 @@ private extension MainSectionView {
 
 // MARK: - Preview
 
-#if DEBUG
 #Preview("Light Theme") {
     MainSectionView(
         viewModel: MainSectionViewModel(
             catalog: CatalogViewModel(repository: PreviewProductRepository()),
             favorites: FavoritesViewModel(service: PreviewFavoritesService())
-    ),
-        productImage: Image("PreviewProduct")
+        )
     )
 }
 
@@ -157,9 +153,7 @@ private extension MainSectionView {
         viewModel: MainSectionViewModel(
             catalog: CatalogViewModel(repository: PreviewProductRepository()),
             favorites: FavoritesViewModel(service: PreviewFavoritesService())
-    ),
-        productImage: Image("PreviewProduct")
+        )
     )
     .preferredColorScheme(.dark)
 }
-#endif

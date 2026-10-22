@@ -9,10 +9,6 @@ import SwiftUI
 
 struct HomeView: View {
 
-    // MARK: - Init Properties
-
-    var productImage: Image? = nil
-    
     // MARK: - Environment
     
     @Environment(MainSectionViewModel.self)
@@ -62,9 +58,12 @@ private extension HomeView {
     var tabContent: some View {
         switch selectedTab {
         case .main:
-            MainSectionView(viewModel: viewModel, productImage: productImage)
+            MainSectionView(viewModel: viewModel)
         case .catalog:
-            CatalogView(viewModel: viewModel.catalog, favorites: viewModel.favorites, productImage: productImage)
+            PetCategoriesView(
+                viewModel: viewModel.catalog,
+                favorites: viewModel.favorites
+            )
         case .shops, .more:
             Text(selectedTab.title)
         }
@@ -74,19 +73,17 @@ private extension HomeView {
 
 // MARK: - Preview
 
-#if DEBUG
 #Preview("Light Theme") {
-    HomeView(productImage: Image("PreviewProduct"))
+    HomeView()
         .environment(MainSectionViewModel(
             catalog: CatalogViewModel(repository: PreviewProductRepository()), favorites: FavoritesViewModel(service: PreviewFavoritesService())
         ))
 }
 
 #Preview("Dark Theme") {
-    HomeView(productImage: Image("PreviewProduct"))
+    HomeView()
         .environment(MainSectionViewModel(
             catalog: CatalogViewModel(repository: PreviewProductRepository()), favorites: FavoritesViewModel(service: PreviewFavoritesService())
         ))
         .preferredColorScheme(.dark)
 }
-#endif

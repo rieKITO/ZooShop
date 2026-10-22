@@ -1,3 +1,10 @@
+//
+//  InfoCardCarouselView.swift
+//  ZooShop
+//
+//  Created by Aleksandr Potemkin on 06.10.2026.
+//
+
 import SwiftUI
 
 struct InfoCardCarouselView: View {
@@ -10,36 +17,26 @@ struct InfoCardCarouselView: View {
     // MARK: - State
 
     @State
-    private var selectedPage = 0
-    
-    // MARK: - Private Properties
-
-    private let pageSpacing: CGFloat = 16
+    private var selectedPage: Int? = 0
     
     // MARK: - Body
 
     var body: some View {
         if !cards.isEmpty {
             VStack(spacing: 12) {
-                ZStack {
-                    ForEach(cards.indices, id: \.self) { index in
-                        cardView(for: cards[index])
-                            .padding(.horizontal, pageSpacing / 2)
-                    }
-                }
-                .overlay {
-                    TabView(selection: $selectedPage) {
+                ScrollView(.horizontal) {
+                    HStack(spacing: 16) {
                         ForEach(cards.indices, id: \.self) { index in
-                            cardView(for: cards[index])
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .clipShape(RoundedRectangle(cornerRadius: 24))
-                                .padding(.horizontal, pageSpacing / 2)
-                                .tag(index)
+                            InfoCardView(card: cards[index], size: size)
+                                .containerRelativeFrame(.horizontal)
+                                .id(index)
                         }
                     }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .scrollTargetLayout()
                 }
-                .padding(.horizontal, -pageSpacing / 2)
+                .scrollIndicators(.hidden)
+                .scrollTargetBehavior(.viewAligned(limitBehavior: .alwaysByOne))
+                .scrollPosition(id: $selectedPage, anchor: .center)
 
                 pageIndicator
             }
@@ -72,10 +69,6 @@ private extension InfoCardCarouselView {
                 .accessibilityAddTraits(index == selectedPage ? .isSelected : [])
             }
         }
-    }
-
-    func cardView(for card: InfoCard) -> some View {
-        InfoCardView(card: card, size: size)
     }
     
 }

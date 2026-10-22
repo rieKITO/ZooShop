@@ -14,8 +14,15 @@ struct PreviewProductRepository: ProductRepository {
     
     // MARK: - Static Properties
     
-    private static let imageURL: URL = {
-        guard let url = URL(string: "https://example.invalid/preview-product.png") else {
+    private static let catImageURL: URL = {
+        guard let url = URL(string: "https://www.monge.it/wp-content/uploads/2018/10/ADULT-MONO-salmone_15KG_8009470005517.jpg") else {
+            preconditionFailure("Invalid image URL in PreviewProductRepository")
+        }
+        return url
+    }()
+
+    private static let dogImageURL: URL = {
+        guard let url = URL(string: "https://www.monge.it/wp-content/uploads/2016/04/monge_cane_secco_all_breeds_adult_monoprotein_agnello_con_riso_e_patate.jpg") else {
             preconditionFailure("Invalid image URL in PreviewProductRepository")
         }
         return url
@@ -32,7 +39,7 @@ struct PreviewProductRepository: ProductRepository {
             price: 1890,
             taste: "Лосось",
             weight: 1.5,
-            imageURL: imageURL,
+            imageURL: catImageURL,
             rating: 4.8,
             discount: 17
         ),
@@ -46,7 +53,7 @@ struct PreviewProductRepository: ProductRepository {
             price: 3290,
             taste: "Ягнёнок и рис",
             weight: 3,
-            imageURL: imageURL,
+            imageURL: dogImageURL,
             rating: 4.7
         )
     ]

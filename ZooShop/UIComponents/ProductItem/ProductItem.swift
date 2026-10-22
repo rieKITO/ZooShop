@@ -29,5 +29,32 @@ extension ProductItem {
         case dog
         case bird
         case smallPet
+        
+        var catalogTitle: String {
+            switch self {
+            case .dog: L10n.PetCategories.Dog.title
+            case .cat: L10n.PetCategories.Cat.title
+            case .smallPet: L10n.PetCategories.SmallPet.title
+            case .bird: L10n.PetCategories.Bird.title
+            }
+        }
+
+        var catalogSubtitle: String {
+            switch self {
+            case .dog: L10n.PetCategories.Dog.subtitle
+            case .cat: L10n.PetCategories.Cat.subtitle
+            case .smallPet: L10n.PetCategories.SmallPet.subtitle
+            case .bird: L10n.PetCategories.Bird.subtitle
+            }
+        }
+
+        var emojiImageName: String {
+            switch self {
+            case .dog: "animalDogEmoji"
+            case .cat: "animalCatEmoji"
+            case .smallPet: "animalRodentEmoji"
+            case .bird: "animalBirdEmoji"
+            }
+        }
     }
 }
