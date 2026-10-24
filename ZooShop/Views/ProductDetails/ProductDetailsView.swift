@@ -32,9 +32,10 @@ struct ProductDetailsView: View {
                     aboutProduct
                 }
                 .padding(16)
+                .padding(.bottom, 32)
             }
+            .scrollIndicators(.hidden)
         }
-        .toolbar(.visible, for: .navigationBar)
         .navigationTitle(L10n.Product.Details.title)
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -54,13 +55,10 @@ private extension ProductDetailsView {
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundStyle(Colors.Content.primary.swiftUIColor)
-            HStack(spacing: 4) {
-                Image(systemName: "star.fill")
-                Text(product.rating.formattedOneDecimal())
-            }
-            .font(.footnote)
-            .fontWeight(.bold)
-            .foregroundStyle(Colors.States.rating.swiftUIColor)
+            Label(product.rating.formattedOneDecimal(), systemImage: "star.fill")
+                .font(.footnote)
+                .fontWeight(.bold)
+                .foregroundStyle(Colors.States.rating.swiftUIColor)
 
             ProductPriceView(product: product, priceFont: .title, originalPriceFont: .subheadline)
                 .padding(.top, 8)
@@ -75,8 +73,8 @@ private extension ProductDetailsView {
                     .foregroundStyle(Colors.Content.onAccent.swiftUIColor)
                     .frame(maxWidth: .infinity, minHeight: 62)
                     .background(
-                        Colors.Brand.primary.swiftUIColor,
-                        in: RoundedRectangle(cornerRadius: 18, style: .continuous)
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .fill(Colors.Brand.primary.swiftUIColor)
                     )
             }
 
@@ -124,13 +122,15 @@ private extension ProductDetailsView {
 
     var aboutProduct: some View {
         VStack(alignment: .leading, spacing: 24) {
-            Text(L10n.Product.Details.about)
-                .font(.title3.bold())
+            VStack(alignment: .leading, spacing: 8) {
+                Text(L10n.Product.Details.about)
+                    .font(.title3)
+                    .fontWeight(.bold)
 
-            Text(product.details)
-                .font(.body)
-                .foregroundStyle(Colors.Content.secondary.swiftUIColor)
-                .fixedSize(horizontal: false, vertical: true)
+                Text(product.details)
+                    .font(.body)
+                    .foregroundStyle(Colors.Content.secondary.swiftUIColor)
+            }
 
             VStack(spacing: 0) {
                 detailRow(title: L10n.Product.Details.animalType, value: product.animalType.catalogTitle)
@@ -150,7 +150,7 @@ private extension ProductDetailsView {
             HStack(alignment: .firstTextBaseline, spacing: 16) {
                 Text(title)
                     .foregroundStyle(Colors.Content.secondary.swiftUIColor)
-                Spacer(minLength: 0)
+                Spacer()
                 Text(value)
                     .multilineTextAlignment(.trailing)
             }
