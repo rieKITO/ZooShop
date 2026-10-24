@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		CAFE00000000000000000008 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 407B21153072A5F200C1126D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 407B211C3072A5F200C1126D;
+			remoteInfo = ZooShop;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		407B211D3072A5F200C1126D /* ZooShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZooShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAFE00000000000000000002 /* ZooShopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = ZooShopTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +27,22 @@
 			path = ZooShop;
 			sourceTree = "<group>";
 		};
+		CAFE00000000000000000003 /* ZooShopTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ZooShopTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		407B211A3072A5F200C1126D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAFE00000000000000000005 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				407B211F3072A5F200C1126D /* ZooShop */,
+				CAFE00000000000000000003 /* ZooShopTests */,
 				407B211E3072A5F200C1126D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				407B211D3072A5F200C1126D /* ZooShop.app */,
+				CAFE00000000000000000002 /* ZooShopTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -69,6 +94,27 @@
 			productName = ZooShop;
 			productReference = 407B211D3072A5F200C1126D /* ZooShop.app */;
 			productType = "com.apple.product-type.application";
+		};
+		CAFE00000000000000000001 /* ZooShopTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAFE00000000000000000009 /* Build configuration list for PBXNativeTarget "ZooShopTests" */;
+			buildPhases = (
+				CAFE00000000000000000004 /* Sources */,
+				CAFE00000000000000000005 /* Frameworks */,
+				CAFE00000000000000000006 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CAFE00000000000000000007 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CAFE00000000000000000003 /* ZooShopTests */,
+			);
+			name = ZooShopTests;
+			productName = ZooShopTests;
+			productReference = CAFE00000000000000000002 /* ZooShopTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -101,12 +147,20 @@
 			projectRoot = "";
 			targets = (
 				407B211C3072A5F200C1126D /* ZooShop */,
+				CAFE00000000000000000001 /* ZooShopTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		407B211B3072A5F200C1126D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAFE00000000000000000006 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -123,7 +177,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CAFE00000000000000000004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CAFE00000000000000000007 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 407B211C3072A5F200C1126D /* ZooShop */;
+			targetProxy = CAFE00000000000000000008 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		407B21263072A5F400C1126D /* Debug */ = {
@@ -310,6 +379,32 @@
 			};
 			name = Release;
 		};
+		CAFE0000000000000000000A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = kito.ZooShopTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ZooShop.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ZooShop";
+			};
+			name = Debug;
+		};
+		CAFE0000000000000000000B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = kito.ZooShopTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ZooShop.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ZooShop";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -327,6 +422,15 @@
 			buildConfigurations = (
 				407B21293072A5F400C1126D /* Debug */,
 				407B212A3072A5F400C1126D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAFE00000000000000000009 /* Build configuration list for PBXNativeTarget "ZooShopTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAFE0000000000000000000A /* Debug */,
+				CAFE0000000000000000000B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
