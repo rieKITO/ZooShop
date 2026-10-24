@@ -37,6 +37,11 @@ struct MainSectionView: View {
         )
     ]
     
+    // MARK: - State
+
+    @State
+    private var selectedProduct: ProductItem?
+
     // MARK: - Body
 
     var body: some View {
@@ -57,6 +62,10 @@ struct MainSectionView: View {
                 .padding(.horizontal, 16)
             }
             .scrollClipDisabled()
+        }
+        .toolbar(.hidden, for: .navigationBar)
+        .navigationDestination(item: $selectedProduct) { product in
+            ProductDetailsView(product: product, favorites: viewModel.favorites)
         }
         .onAppear {
             viewModel.loadIfNeeded()
@@ -104,7 +113,8 @@ private extension MainSectionView {
                         ProductItemView(
                             product: product,
                             isFavorite: viewModel.favorites.contains(product.id),
-                            isFavoriteEnabled: viewModel.favorites.isAvailable
+                            isFavoriteEnabled: viewModel.favorites.isAvailable,
+                            onSelect: { selectedProduct = product }
                         ) {
                             viewModel.toggleFavorite(product.id)
                         }

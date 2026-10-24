@@ -15,6 +15,11 @@ struct CatalogView: View {
     let favorites: FavoritesViewModel
     var animalType: ProductItem.AnimalType? = nil
     
+    // MARK: - State
+
+    @State
+    private var selectedProduct: ProductItem?
+
     // MARK: - Body
 
     var body: some View {
@@ -40,6 +45,9 @@ struct CatalogView: View {
             .onAppear {
                 viewModel.loadIfNeeded()
             }
+        }
+        .navigationDestination(item: $selectedProduct) { product in
+            ProductDetailsView(product: product, favorites: favorites)
         }
     }
 }
@@ -85,7 +93,8 @@ private extension CatalogView {
                 ProductItemView(
                     product: product,
                     isFavorite: favorites.contains(product.id),
-                    isFavoriteEnabled: favorites.isAvailable
+                    isFavoriteEnabled: favorites.isAvailable,
+                    onSelect: { selectedProduct = product }
                 ) {
                     favorites.toggle(product.id)
                 }

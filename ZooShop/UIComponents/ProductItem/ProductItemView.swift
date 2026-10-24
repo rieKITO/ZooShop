@@ -14,6 +14,7 @@ struct ProductItemView: View {
     let product: ProductItem
     let isFavorite: Bool
     var isFavoriteEnabled: Bool = true
+    var onSelect: () -> Void = { }
     let onToggleFavorite: () -> Void
     
     
@@ -27,6 +28,8 @@ struct ProductItemView: View {
             productInfo
             productTasteAndWeight
         }
+        .onTapGesture(perform: onSelect)
+        .accessibilityAction(named: L10n.Product.Details.title, onSelect)
         .overlay(alignment: .topTrailing) {
             favoriteButton
                 .padding(6)

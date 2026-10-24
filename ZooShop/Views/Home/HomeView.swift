@@ -58,7 +58,9 @@ private extension HomeView {
     var tabContent: some View {
         switch selectedTab {
         case .main:
-            MainSectionView(viewModel: viewModel)
+            NavigationStack {
+                MainSectionView(viewModel: viewModel)
+            }
         case .catalog:
             PetCategoriesView(
                 viewModel: viewModel.catalog,
