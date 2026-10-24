@@ -96,6 +96,30 @@ internal enum L10n {
     internal static func rating(_ p1: Float) -> String {
       return L10n.tr("Localizable", "Product.rating", p1, fallback: "Рейтинг %.1f из 5")
     }
+    internal enum Details {
+      /// О товаре
+      internal static let about = L10n.tr("Localizable", "Product.details.about", fallback: "О товаре")
+      /// Вид животного
+      internal static let animalType = L10n.tr("Localizable", "Product.details.animalType", fallback: "Вид животного")
+      /// Бренд
+      internal static let brand = L10n.tr("Localizable", "Product.details.brand", fallback: "Бренд")
+      /// Вес упаковки
+      internal static let packageWeight = L10n.tr("Localizable", "Product.details.packageWeight", fallback: "Вес упаковки")
+      /// Цена справочная. Актуальную стоимость и наличие уточняйте в магазине.
+      internal static let priceNote = L10n.tr("Localizable", "Product.details.priceNote", fallback: "Цена справочная. Актуальную стоимость и наличие уточняйте в магазине.")
+      /// В список покупок
+      internal static let shoppingList = L10n.tr("Localizable", "Product.details.shoppingList", fallback: "В список покупок")
+      /// Вкус
+      internal static let taste = L10n.tr("Localizable", "Product.details.taste", fallback: "Вкус")
+      /// Карточка товара
+      internal static let title = L10n.tr("Localizable", "Product.details.title", fallback: "Карточка товара")
+      /// %@ кг
+      internal static func weight(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Product.details.weight", String(describing: p1), fallback: "%@ кг")
+      }
+      /// Где купить
+      internal static let whereToBuy = L10n.tr("Localizable", "Product.details.whereToBuy", fallback: "Где купить")
+    }
     internal enum Image {
       /// Повторить загрузку
       internal static let retry = L10n.tr("Localizable", "Product.image.retry", fallback: "Повторить загрузку")

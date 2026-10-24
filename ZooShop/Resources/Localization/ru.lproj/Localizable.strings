@@ -48,3 +48,15 @@
 "PetCategories.smallPet.subtitle" = "Все для наших маленьких друзей";
 "PetCategories.bird.title" = "Птицы";
 "PetCategories.bird.subtitle" = "Корма и зерновые смеси для птиц";
+
+// Product details
+"Product.details.whereToBuy" = "Где купить";
+"Product.details.shoppingList" = "В список покупок";
+"Product.details.priceNote" = "Цена справочная. Актуальную стоимость и наличие уточняйте в магазине.";
+"Product.details.about" = "О товаре";
+"Product.details.animalType" = "Вид животного";
+"Product.details.brand" = "Бренд";
+"Product.details.taste" = "Вкус";
+"Product.details.packageWeight" = "Вес упаковки";
+"Product.details.weight" = "%@ кг";
+"Product.details.title" = "Карточка товара";
