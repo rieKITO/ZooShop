@@ -24,6 +24,7 @@
 "Favorites.error.missingModel" = "Модель Core Data не найдена в приложении.";
 "Common.retry" = "Повторить";
 "Common.ok" = "ОК";
+"Common.all" = "Все";
 
 "Favorites.title" = "Любимые товары";
 "Favorites.empty" = "Пока нет избранных товаров. Добавьте их, нажав на сердечко в каталоге.";

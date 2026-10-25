@@ -29,6 +29,8 @@ internal enum L10n {
     }
   }
   internal enum Common {
+    /// Все
+    internal static let all = L10n.tr("Localizable", "Common.all", fallback: "Все")
     /// ОК
     internal static let ok = L10n.tr("Localizable", "Common.ok", fallback: "ОК")
     /// Повторить

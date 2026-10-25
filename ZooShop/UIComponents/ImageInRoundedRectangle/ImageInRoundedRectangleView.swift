@@ -14,6 +14,7 @@ struct ImageInRoundedRectangleView: View {
     let imageName: String
     let rectangleBackgroundColor: Color
     var imageSize: CGFloat = 80.0
+    var fillsWidth: Bool = false
     
     // MARK: - Body
     
@@ -22,7 +23,9 @@ struct ImageInRoundedRectangleView: View {
             .resizable()
             .scaledToFit()
             .frame(width: imageSize, height: imageSize, alignment: .center)
-            .padding(16)
+            .padding(.vertical, 16)
+            .padding(.horizontal, fillsWidth ? 0 : 16)
+            .frame(maxWidth: fillsWidth ? .infinity : nil)
             .background(
                 RoundedRectangle(cornerRadius: 24)
                     .fill(rectangleBackgroundColor)

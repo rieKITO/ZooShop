@@ -59,7 +59,10 @@ private extension HomeView {
         switch selectedTab {
         case .main:
             NavigationStack {
-                MainSectionView(viewModel: viewModel)
+                MainSectionView(
+                    viewModel: viewModel,
+                    onShowAllPetCategories: { selectedTab = .catalog }
+                )
             }
         case .catalog:
             PetCategoriesView(

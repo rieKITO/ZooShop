@@ -12,6 +12,9 @@ struct MainSectionView: View {
     // MARK: - Init Properties
     
     let viewModel: MainSectionViewModel
+    let onShowAllPetCategories: () -> Void
+
+    private let petCategories: [ProductItem.AnimalType] = [.dog, .cat, .smallPet, .bird]
 
     private let cards: [InfoCard] = [
         InfoCard(
@@ -53,8 +56,10 @@ struct MainSectionView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     title
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    infoCards
+                    InfoCardCarouselView(cards: cards, size: .big)
                         .padding(.top, 8)
+                    petCategoriesSection
+                        .padding(.top, 24)
                     favoriteProducts
                         .padding(.top, 24)
                 }
@@ -67,6 +72,25 @@ struct MainSectionView: View {
         .navigationDestination(item: $selectedProduct) { product in
             ProductDetailsView(product: product, favorites: viewModel.favorites)
         }
+        .navigationDestination(for: ProductItem.AnimalType.self) { animalType in
+            CatalogView(
+                viewModel: viewModel.catalog,
+                favorites: viewModel.favorites,
+                animalType: animalType
+            )
+            .navigationTitle(animalType.catalogTitle)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(.visible, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(animalType.catalogTitle)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Colors.Content.primary.swiftUIColor)
+                        .accessibilityAddTraits(.isHeader)
+                }
+            }
+        }
         .onAppear {
             viewModel.loadIfNeeded()
         }
@@ -76,15 +100,52 @@ struct MainSectionView: View {
 // MARK: - Subviews
 
 private extension MainSectionView {
+
+    var petCategoriesSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            SectionHeaderView(
+                title: L10n.PetCategories.title,
+                onShowAll: onShowAllPetCategories
+            )
+
+            LazyVGrid(
+                columns: Array(
+                    repeating: GridItem(.flexible(), spacing: 12),
+                    count: 4),
+                spacing: 12) {
+                ForEach(petCategories, id: \.self) { animalType in
+                    NavigationLink(value: animalType) {
+                        VStack(spacing: 8) {
+                            ImageInRoundedRectangleView(
+                                imageName: animalType.emojiImageName,
+                                rectangleBackgroundColor: categoryColor(for: animalType),
+                                imageSize: 48,
+                                fillsWidth: true
+                            )
+
+                            Text(animalType.catalogTitle)
+                                .font(.caption)
+                                .foregroundStyle(Colors.Content.primary.swiftUIColor)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+        }
+    }
+
+    func categoryColor(for animalType: ProductItem.AnimalType) -> Color {
+        switch animalType {
+        case .dog: Colors.Decorative.categoryDog.swiftUIColor
+        case .cat: Colors.Decorative.categoryCat.swiftUIColor
+        case .smallPet: Colors.Decorative.categorySmallPet.swiftUIColor
+        case .bird: Colors.Decorative.categoryBird.swiftUIColor
+        }
+    }
     
-    @ViewBuilder
     var favoriteProducts: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text(L10n.Favorites.title)
-                .font(.title2)
-                .fontWeight(.bold)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundStyle(Colors.Content.primary.swiftUIColor)
+            SectionHeaderView(title: L10n.Favorites.title)
 
             if viewModel.isLoading {
                 ProgressView()
@@ -141,29 +202,23 @@ private extension MainSectionView {
         .fontWeight(.heavy)
     }
     
-    var infoCards: some View {
-        InfoCardCarouselView(cards: cards, size: .big)
-    }
-    
 }
 
 // MARK: - Preview
 
 #Preview("Light Theme") {
-    MainSectionView(
-        viewModel: MainSectionViewModel(
+    HomeView()
+        .environment(MainSectionViewModel(
             catalog: CatalogViewModel(repository: PreviewProductRepository()),
             favorites: FavoritesViewModel(service: PreviewFavoritesService())
-        )
-    )
+        ))
 }
 
 #Preview("Dark Theme") {
-    MainSectionView(
-        viewModel: MainSectionViewModel(
+    HomeView()
+        .environment(MainSectionViewModel(
             catalog: CatalogViewModel(repository: PreviewProductRepository()),
             favorites: FavoritesViewModel(service: PreviewFavoritesService())
-        )
-    )
-    .preferredColorScheme(.dark)
+        ))
+        .preferredColorScheme(.dark)
 }
