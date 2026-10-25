@@ -9,6 +9,9 @@ import SwiftUI
 
 struct MainSectionView: View {
     
+    @Environment(\.tabBarContentInset)
+    private var tabBarContentInset
+
     // MARK: - Init Properties
     
     let viewModel: MainSectionViewModel
@@ -45,6 +48,9 @@ struct MainSectionView: View {
     @State
     private var selectedProduct: ProductItem?
 
+    @State
+    private var showsAllFavorites = false
+
     // MARK: - Body
 
     var body: some View {
@@ -66,6 +72,7 @@ struct MainSectionView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 16)
             }
+            .contentMargins(.bottom, tabBarContentInset, for: .scrollContent)
             .scrollClipDisabled()
         }
         .toolbar(.hidden, for: .navigationBar)
@@ -76,7 +83,7 @@ struct MainSectionView: View {
             CatalogView(
                 viewModel: viewModel.catalog,
                 favorites: viewModel.favorites,
-                animalType: animalType
+                filter: .animal(animalType)
             )
             .navigationTitle(animalType.catalogTitle)
             .navigationBarTitleDisplayMode(.inline)
@@ -84,6 +91,25 @@ struct MainSectionView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text(animalType.catalogTitle)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Colors.Content.primary.swiftUIColor)
+                        .accessibilityAddTraits(.isHeader)
+                }
+            }
+        }
+        .navigationDestination(isPresented: $showsAllFavorites) {
+            CatalogView(
+                viewModel: viewModel.catalog,
+                favorites: viewModel.favorites,
+                filter: .favorites
+            )
+            .navigationTitle(L10n.Favorites.title)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(.visible, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(L10n.Favorites.title)
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundStyle(Colors.Content.primary.swiftUIColor)
@@ -145,7 +171,9 @@ private extension MainSectionView {
     
     var favoriteProducts: some View {
         VStack(alignment: .leading, spacing: 16) {
-            SectionHeaderView(title: L10n.Favorites.title)
+            SectionHeaderView(title: L10n.Favorites.title) {
+                showsAllFavorites = true
+            }
 
             if viewModel.isLoading {
                 ProgressView()
@@ -170,7 +198,7 @@ private extension MainSectionView {
                         ],
                     spacing: 20
                 ) {
-                    ForEach(viewModel.favoriteProducts) { product in
+                    ForEach(viewModel.favoriteProducts.prefix(2)) { product in
                         ProductItemView(
                             product: product,
                             isFavorite: viewModel.favorites.contains(product.id),
@@ -184,7 +212,7 @@ private extension MainSectionView {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.bottom, 24)
+        .padding(.bottom, 8)
     }
 
     var title: some View {

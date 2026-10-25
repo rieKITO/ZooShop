@@ -26,9 +26,10 @@ struct HomeView: View {
             Colors.Backgrounds.canvas.swiftUIColor
                 .ignoresSafeArea()
             tabContent
+                .environment(\.tabBarContentInset, TabBarLayout.height)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .safeAreaInset(edge: .bottom, spacing: 0) {
+        .overlay(alignment: .bottom) {
             CustomTabBarView(tabs: HomeTab.allCases, selectedTab: $selectedTab)
         }
         .ignoresSafeArea(.container, edges: .bottom)

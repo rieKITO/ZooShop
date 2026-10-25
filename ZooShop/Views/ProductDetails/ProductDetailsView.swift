@@ -9,6 +9,9 @@ import SwiftUI
 
 struct ProductDetailsView: View {
 
+    @Environment(\.tabBarContentInset)
+    private var tabBarContentInset
+
     // MARK: - Init Properties
 
     let product: ProductItem
@@ -31,9 +34,11 @@ struct ProductDetailsView: View {
                         .foregroundStyle(Colors.Content.secondary.swiftUIColor)
                     aboutProduct
                 }
-                .padding(16)
-                .padding(.bottom, 32)
+                .padding(.horizontal, 16)
+                .padding(.top, 16)
+                .padding(.bottom, 8)
             }
+            .contentMargins(.bottom, tabBarContentInset, for: .scrollContent)
             .scrollIndicators(.hidden)
         }
         .navigationTitle(L10n.Product.Details.title)

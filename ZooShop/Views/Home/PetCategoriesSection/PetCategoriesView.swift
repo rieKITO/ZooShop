@@ -9,6 +9,9 @@ import SwiftUI
 
 struct PetCategoriesView: View {
     
+    @Environment(\.tabBarContentInset)
+    private var tabBarContentInset
+
     // MARK: - Init Properties
     
     let viewModel: CatalogViewModel
@@ -31,12 +34,13 @@ struct PetCategoriesView: View {
                     .padding(.horizontal, 16)
                     .padding(.vertical, 24)
                 }
+                .contentMargins(.bottom, tabBarContentInset, for: .scrollContent)
             }
             .navigationDestination(for: ProductItem.AnimalType.self) { animalType in
                 CatalogView(
                     viewModel: viewModel,
                     favorites: favorites,
-                    animalType: animalType
+                    filter: .animal(animalType)
                 )
                 .navigationTitle(animalType.catalogTitle)
                 .navigationBarTitleDisplayMode(.inline)

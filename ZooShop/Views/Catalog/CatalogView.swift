@@ -8,12 +8,21 @@
 import SwiftUI
 
 struct CatalogView: View {
+
+    enum Filter {
+        case all
+        case animal(ProductItem.AnimalType)
+        case favorites
+    }
     
+    @Environment(\.tabBarContentInset)
+    private var tabBarContentInset
+
     // MARK: - Init Properties
     
     let viewModel: CatalogViewModel
     let favorites: FavoritesViewModel
-    var animalType: ProductItem.AnimalType? = nil
+    var filter: Filter = .all
     
     // MARK: - State
 
@@ -33,12 +42,14 @@ struct CatalogView: View {
                         catalogContent
                             .frame(maxWidth: .infinity)
                             .frame(
-                                minHeight: max(0, geometry.size.height - 24),
+                                minHeight: max(0, geometry.size.height - tabBarContentInset - 32),
                                 alignment: viewModel.errorMessage != nil && !viewModel.isLoading ? .center : .top
                             )
                             .padding(.horizontal, 16)
-                            .padding(.vertical, 24)
+                            .padding(.top, 24)
+                            .padding(.bottom, 8)
                     }
+                    .contentMargins(.bottom, tabBarContentInset, for: .scrollContent)
                 }
             }
             .foregroundStyle(Colors.Content.primary.swiftUIColor)
@@ -69,7 +80,7 @@ private extension CatalogView {
                 viewModel.loadProducts()
             }
         } else if filteredProducts.isEmpty {
-            Text(L10n.Catalog.empty)
+            Text(emptyMessage)
                 .frame(maxWidth: .infinity, alignment: .leading)
         } else {
             productsGrid
@@ -77,7 +88,21 @@ private extension CatalogView {
     }
 
     var filteredProducts: [ProductItem] {
-        viewModel.products.filter { animalType == nil || $0.animalType == animalType }
+        switch filter {
+        case .all:
+            viewModel.products
+        case .animal(let animalType):
+            viewModel.products.filter { $0.animalType == animalType }
+        case .favorites:
+            viewModel.products.filter { favorites.contains($0.id) }
+        }
+    }
+
+    var emptyMessage: String {
+        switch filter {
+        case .favorites: L10n.Favorites.empty
+        case .all, .animal: L10n.Catalog.empty
+        }
     }
 
     var productsGrid: some View {

@@ -7,6 +7,21 @@
 
 import SwiftUI
 
+enum TabBarLayout {
+    static let height: CGFloat = 95
+}
+
+private struct TabBarContentInsetKey: EnvironmentKey {
+    static let defaultValue: CGFloat = 0
+}
+
+extension EnvironmentValues {
+    var tabBarContentInset: CGFloat {
+        get { self[TabBarContentInsetKey.self] }
+        set { self[TabBarContentInsetKey.self] = newValue }
+    }
+}
+
 struct CustomTabBarView<Tab: TabBarItem>: View {
 
     let tabs: [Tab]
@@ -30,7 +45,7 @@ struct CustomTabBarView<Tab: TabBarItem>: View {
             tabItems
                 .padding(.horizontal)
         }
-        .frame(height: 95, alignment: .bottom)
+        .frame(height: TabBarLayout.height, alignment: .bottom)
         .padding(.horizontal)
     }
 
