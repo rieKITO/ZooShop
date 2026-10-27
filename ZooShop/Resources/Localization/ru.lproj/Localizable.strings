@@ -8,6 +8,12 @@
 
 "Main.title" = "лапка";
 
+// Settings
+"Settings.appearance.title" = "Оформление";
+"Settings.appearance.light" = "Светлая";
+"Settings.appearance.dark" = "Тёмная";
+"Settings.appearance.system" = "Как на устройстве";
+
 // TabBar
 "TabBar.category.main" = "Главная";
 "TabBar.category.catalog" = "Каталог";

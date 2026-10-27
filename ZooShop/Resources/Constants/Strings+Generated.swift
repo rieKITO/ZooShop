@@ -127,6 +127,18 @@ internal enum L10n {
       internal static let retry = L10n.tr("Localizable", "Product.image.retry", fallback: "Повторить загрузку")
     }
   }
+  internal enum Settings {
+    internal enum Appearance {
+      /// Тёмная
+      internal static let dark = L10n.tr("Localizable", "Settings.appearance.dark", fallback: "Тёмная")
+      /// Светлая
+      internal static let light = L10n.tr("Localizable", "Settings.appearance.light", fallback: "Светлая")
+      /// Как на устройстве
+      internal static let system = L10n.tr("Localizable", "Settings.appearance.system", fallback: "Как на устройстве")
+      /// Оформление
+      internal static let title = L10n.tr("Localizable", "Settings.appearance.title", fallback: "Оформление")
+    }
+  }
   internal enum TabBar {
     internal enum Category {
       /// Каталог
