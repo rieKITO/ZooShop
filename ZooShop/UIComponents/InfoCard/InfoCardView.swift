@@ -31,6 +31,7 @@ struct InfoCardView: View {
     
     let card: InfoCard
     var size: Size = .big
+    var foregroundColor: Color = Colors.Content.onBanner.swiftUIColor
     
     // MARK: - Body
     
@@ -39,6 +40,7 @@ struct InfoCardView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text(card.tag.uppercased())
                     .font(.caption)
+                    .tracking(1.5)
                     .fontWeight(.medium)
                 Text(card.title)
                     .font(size.titleFont)
@@ -46,7 +48,7 @@ struct InfoCardView: View {
                 Text(card.description)
                     .font(.caption)
             }
-            .foregroundStyle(Colors.Content.onBanner.swiftUIColor)
+            .foregroundStyle(foregroundColor)
             .padding(.vertical, 16)
             .padding(.leading, 16)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

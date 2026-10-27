@@ -8,7 +8,15 @@
 
 "Main.title" = "лапка";
 
+// More
+"More.title" = "Ещё немного заботы";
+"More.card.tag" = "Вместе с Лапкой";
+"More.card.title" = "Счастливый питомец.\nСчастливы вы.";
+"More.card.description" = "Мы рядом каждый день";
+"More.about" = "О магазине / Контакты";
 "More.settings" = "Настройки";
+"More.footer" = "Лапка · с заботой о каждом питомце";
+
 // Settings
 "Settings.appearance.title" = "Оформление";
 "Settings.appearance.light" = "Светлая";

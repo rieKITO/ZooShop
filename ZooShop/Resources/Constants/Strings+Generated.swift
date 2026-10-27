@@ -62,8 +62,23 @@ internal enum L10n {
     internal static let title = L10n.tr("Localizable", "Main.title", fallback: "лапка")
   }
   internal enum More {
+    /// О магазине / Контакты
+    internal static let about = L10n.tr("Localizable", "More.about", fallback: "О магазине / Контакты")
+    /// Лапка · с заботой о каждом питомце
+    internal static let footer = L10n.tr("Localizable", "More.footer", fallback: "Лапка · с заботой о каждом питомце")
     /// Настройки
     internal static let settings = L10n.tr("Localizable", "More.settings", fallback: "Настройки")
+    /// Ещё немного заботы
+    internal static let title = L10n.tr("Localizable", "More.title", fallback: "Ещё немного заботы")
+    internal enum Card {
+      /// Мы рядом каждый день
+      internal static let description = L10n.tr("Localizable", "More.card.description", fallback: "Мы рядом каждый день")
+      /// Вместе с Лапкой
+      internal static let tag = L10n.tr("Localizable", "More.card.tag", fallback: "Вместе с Лапкой")
+      /// Счастливый питомец.
+      /// Счастливы вы.
+      internal static let title = L10n.tr("Localizable", "More.card.title", fallback: "Счастливый питомец.\nСчастливы вы.")
+    }
   }
   internal enum PetCategories {
     /// Подберём питание для каждого питомца

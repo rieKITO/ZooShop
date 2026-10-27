@@ -70,8 +70,13 @@ private extension HomeView {
                 viewModel: viewModel.catalog,
                 favorites: viewModel.favorites
             )
-        case .shops, .more:
+        case .shops:
             Text(selectedTab.title)
+        case .more:
+            NavigationStack {
+                MoreSectionView()
+            }
+            .tint(Colors.Content.primary.swiftUIColor)
         }
     }
     
@@ -81,6 +86,7 @@ private extension HomeView {
 
 #Preview("Light Theme") {
     HomeView()
+        .environment(AppThemeManager())
         .environment(MainSectionViewModel(
             catalog: CatalogViewModel(repository: PreviewProductRepository()), favorites: FavoritesViewModel(service: PreviewFavoritesService())
         ))
@@ -88,6 +94,7 @@ private extension HomeView {
 
 #Preview("Dark Theme") {
     HomeView()
+        .environment(AppThemeManager())
         .environment(MainSectionViewModel(
             catalog: CatalogViewModel(repository: PreviewProductRepository()), favorites: FavoritesViewModel(service: PreviewFavoritesService())
         ))
