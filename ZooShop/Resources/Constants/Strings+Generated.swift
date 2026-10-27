@@ -61,6 +61,10 @@ internal enum L10n {
     ///   Created by Aleksandr Potemkin on 04.10.2026.
     internal static let title = L10n.tr("Localizable", "Main.title", fallback: "лапка")
   }
+  internal enum More {
+    /// Настройки
+    internal static let settings = L10n.tr("Localizable", "More.settings", fallback: "Настройки")
+  }
   internal enum PetCategories {
     /// Подберём питание для каждого питомца
     internal static let note = L10n.tr("Localizable", "PetCategories.note", fallback: "Подберём питание для каждого питомца")

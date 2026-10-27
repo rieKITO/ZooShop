@@ -8,6 +8,7 @@
 
 "Main.title" = "лапка";
 
+"More.settings" = "Настройки";
 // Settings
 "Settings.appearance.title" = "Оформление";
 "Settings.appearance.light" = "Светлая";
