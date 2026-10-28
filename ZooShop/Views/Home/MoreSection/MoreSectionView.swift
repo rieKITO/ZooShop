@@ -9,6 +9,10 @@ import SwiftUI
 
 struct MoreSectionView: View {
 
+    // MARK: - Init Properties
+
+    let onShowShops: () -> Void
+
     // MARK: - Environment
 
     @Environment(\.tabBarContentInset)
@@ -63,6 +67,7 @@ private extension MoreSectionView {
     var menu: some View {
         ListGroupView(rows: [
             NavigationLink {
+                AboutStoreView(onShowShops: onShowShops)
             } label: {
                 ListRowView(title: L10n.More.about, systemImage: "info.circle")
             },
@@ -88,14 +93,14 @@ private extension MoreSectionView {
 
 #Preview("Light Theme") {
     NavigationStack {
-        MoreSectionView()
+        MoreSectionView(onShowShops: {})
     }
     .environment(AppThemeManager())
 }
 
 #Preview("Dark Theme") {
     NavigationStack {
-        MoreSectionView()
+        MoreSectionView(onShowShops: {})
     }
     .environment(AppThemeManager())
     .preferredColorScheme(.dark)

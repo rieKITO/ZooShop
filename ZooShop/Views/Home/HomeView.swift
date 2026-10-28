@@ -62,7 +62,9 @@ private extension HomeView {
             NavigationStack {
                 MainSectionView(
                     viewModel: viewModel,
-                    onShowAllPetCategories: { selectedTab = .catalog }
+                    onShowAllPetCategories: {
+                        selectedTab = .catalog
+                    }
                 )
             }
         case .catalog:
@@ -74,9 +76,12 @@ private extension HomeView {
             Text(selectedTab.title)
         case .more:
             NavigationStack {
-                MoreSectionView()
+                MoreSectionView(
+                    onShowShops: {
+                        selectedTab = .shops
+                    }
+                )
             }
-            .tint(Colors.Content.primary.swiftUIColor)
         }
     }
     
