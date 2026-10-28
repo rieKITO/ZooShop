@@ -7,27 +7,24 @@
 
 import SwiftUI
 
-struct ListGroupView<Content: View>: View {
+struct ListGroupView: View {
 
     // MARK: - Init Properties
 
-    @ViewBuilder
-    let content: Content
+    let rows: [any ListGroupContent]
 
     // MARK: - Body
 
     var body: some View {
         VStack(spacing: 0) {
-            Group(subviews: content) { subviews in
-                ForEach(subviews) { subview in
-                    if subview.id != subviews.first?.id {
-                        Rectangle()
-                            .fill(Colors.Borders.subtle.swiftUIColor)
-                            .frame(height: 0.5)
-                            .accessibilityHidden(true)
-                    }
-                    subview
+            ForEach(rows.indices, id: \.self) { index in
+                if index != rows.startIndex {
+                    Rectangle()
+                        .fill(Colors.Borders.subtle.swiftUIColor)
+                        .frame(height: 0.5)
+                        .accessibilityHidden(true)
                 }
+                rows[index].groupRowView
             }
         }
         .background(
@@ -40,22 +37,36 @@ struct ListGroupView<Content: View>: View {
 // MARK: - Preview
 
 #Preview("ListRows") {
-    ListGroupView {
-        ListRowView(title: "О приложении", systemImage: "info.circle")
-        ListRowView(title: "Настройки", systemImage: "gearshape")
+    ListGroupView(rows: [
+        ListRowView(title: "О приложении", systemImage: "info.circle"),
+        ListRowView(title: "Настройки", systemImage: "gearshape"),
         ListRowView(title: "Избранное", systemImage: "heart")
-    }
+    ])
     .padding()
 }
 
 #Preview("SelectionRows") {
-    ListGroupView {
-        SelectionRowView(title: "Короткий заголовок", isSelected: false) {}
-        SelectionRowView(
-            title: "Длинный заголовок\nна две строки",
-            isSelected: true
-        ) {}
-    }
+    ListGroupView(rows: [
+        SelectionRowView(title: "Короткий заголовок", isSelected: false) {},
+        SelectionRowView(title: "Длинный заголовок\nна две строки", isSelected: true) {}
+    ])
     .padding()
 }
 
+#Preview("Mixed rows") {
+    NavigationStack {
+        ListGroupView(rows: [
+            ListRowView(title: "Информация", systemImage: "info.circle", showsChevron: false),
+            SelectionRowView(title: "Выбранный вариант", isSelected: true, systemImage: "info.circle") {},
+            Button {} label: {
+                ListRowView(title: "Действие", systemImage: "heart")
+            },
+            NavigationLink {
+                Text("Подробности")
+            } label: {
+                ListRowView(title: "Подробнее", systemImage: "info.circle")
+            }
+        ])
+        .padding()
+    }
+}

@@ -61,15 +61,17 @@ private extension MoreSectionView {
     }
 
     var menu: some View {
-        ListGroupView {
-            ListRowView(title: L10n.More.about, systemImage: "info.circle")
-
+        ListGroupView(rows: [
+            NavigationLink {
+            } label: {
+                ListRowView(title: L10n.More.about, systemImage: "info.circle")
+            },
             NavigationLink {
                 SettingsView()
             } label: {
                 ListRowView(title: L10n.More.settings, systemImage: "gearshape")
             }
-        }
+        ])
     }
 
     var footer: some View {

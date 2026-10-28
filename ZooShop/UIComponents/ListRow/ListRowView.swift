@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ListRowView: View {
+struct ListRowView: ListGroupContent {
 
     // MARK: - Init Properties
 

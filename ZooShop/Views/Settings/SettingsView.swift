@@ -56,8 +56,8 @@ struct SettingsView: View {
 private extension SettingsView {
 
     var appearanceOptions: some View {
-        ListGroupView {
-            ForEach(AppTheme.allCases) { theme in
+        ListGroupView(rows:
+            AppTheme.allCases.map { theme in
                 SelectionRowView(
                     title: theme.displayName,
                     isSelected: appThemeManager.selectedTheme == theme
@@ -65,7 +65,7 @@ private extension SettingsView {
                     appThemeManager.updateTheme(theme)
                 }
             }
-        }
+        )
     }
 }
 
