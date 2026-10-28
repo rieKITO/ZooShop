@@ -13,8 +13,9 @@ struct ListRowView: View {
 
     let title: String
     let systemImage: String
+    var showsChevron: Bool = true
     var subtitle: String? = nil
-
+    
     // MARK: - Body
 
     var body: some View {
@@ -36,11 +37,13 @@ struct ListRowView: View {
             }
             .multilineTextAlignment(.leading)
             Spacer()
-            Image(systemName: "chevron.right")
-                .font(.system(size: 14))
-                .fontWeight(.medium)
-                .foregroundStyle(Colors.Content.secondary.swiftUIColor)
-                .accessibilityHidden(true)
+            if showsChevron {
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 14))
+                    .fontWeight(.medium)
+                    .foregroundStyle(Colors.Content.secondary.swiftUIColor)
+                    .accessibilityHidden(true)
+            }
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 20)

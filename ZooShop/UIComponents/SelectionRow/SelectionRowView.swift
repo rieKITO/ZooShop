@@ -13,6 +13,7 @@ struct SelectionRowView: View {
 
     let title: String
     let isSelected: Bool
+    var systemImage: String? = nil
     let action: () -> Void
 
     // MARK: - Body
@@ -20,6 +21,12 @@ struct SelectionRowView: View {
     var body: some View {
         Button(action: action) {
             HStack(alignment: .center, spacing: 16) {
+                if let systemImage {
+                    Image(systemName: systemImage)
+                        .font(.title2)
+                        .foregroundStyle(Colors.Content.accent.swiftUIColor)
+                        .accessibilityHidden(true)
+                }
                 Text(title)
                     .font(.body)
                     .foregroundStyle(Colors.Content.primary.swiftUIColor)
@@ -44,10 +51,19 @@ struct SelectionRowView: View {
 
 // MARK: - Preview
 
-#Preview() {
+#Preview("Without image") {
     SelectionRowView(
         title: "Длинный заголовок\nна две строки",
         isSelected: true
+    ) {}
+    .padding()
+}
+
+#Preview("With image") {
+    SelectionRowView(
+        title: "Светлая тема",
+        isSelected: true,
+        systemImage: "sun.max"
     ) {}
     .padding()
 }
