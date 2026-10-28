@@ -10,6 +10,51 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  internal enum AboutStore {
+    /// Помогаем заботиться о домашних любимцах: выбираем товары, делимся полезными советами и встречаем вас в наших магазинах.
+    internal static let description = L10n.tr("Localizable", "AboutStore.description", fallback: "Помогаем заботиться о домашних любимцах: выбираем товары, делимся полезными советами и встречаем вас в наших магазинах.")
+    /// «Лапка» — вымышленный магазин, созданный для демонстрационного проекта. Название, контакты и сведения о магазине приведены в качестве примера. Любые совпадения с реальными организациями, брендами или лицами случайны. Проект не связан с такими организациями и не является их официальным приложением.
+    internal static let disclaimer = L10n.tr("Localizable", "AboutStore.disclaimer", fallback: "«Лапка» — вымышленный магазин, созданный для демонстрационного проекта. Название, контакты и сведения о магазине приведены в качестве примера. Любые совпадения с реальными организациями, брендами или лицами случайны. Проект не связан с такими организациями и не является их официальным приложением.")
+    /// Место, где знают:
+    /// питомец — часть семьи.
+    internal static let tagline = L10n.tr("Localizable", "AboutStore.tagline", fallback: "Место, где знают:\nпитомец — часть семьи.")
+    /// О магазине
+    internal static let title = L10n.tr("Localizable", "AboutStore.title", fallback: "О магазине")
+    internal enum Contacts {
+      /// Адреса магазинов
+      internal static let addresses = L10n.tr("Localizable", "AboutStore.contacts.addresses", fallback: "Адреса магазинов")
+      /// hello@lapka.example
+      internal static let email = L10n.tr("Localizable", "AboutStore.contacts.email", fallback: "hello@lapka.example")
+      /// Вопросы и предложения
+      internal static let emailSubtitle = L10n.tr("Localizable", "AboutStore.contacts.emailSubtitle", fallback: "Вопросы и предложения")
+      /// Ежедневно, 10:00–21:00
+      internal static let hours = L10n.tr("Localizable", "AboutStore.contacts.hours", fallback: "Ежедневно, 10:00–21:00")
+      /// +7 (495) 000-00-00
+      internal static let phone = L10n.tr("Localizable", "AboutStore.contacts.phone", fallback: "+7 (495) 000-00-00")
+      /// Свяжитесь с нами
+      internal static let title = L10n.tr("Localizable", "AboutStore.contacts.title", fallback: "Свяжитесь с нами")
+    }
+    internal enum Facts {
+      internal enum Love {
+        /// любви к питомцам
+        internal static let caption = L10n.tr("Localizable", "AboutStore.facts.love.caption", fallback: "любви к питомцам")
+        /// 100%%
+        internal static let value = L10n.tr("Localizable", "AboutStore.facts.love.value", fallback: "100%%")
+      }
+      internal enum Shops {
+        /// магазина рядом
+        internal static let caption = L10n.tr("Localizable", "AboutStore.facts.shops.caption", fallback: "магазина рядом")
+        /// 3
+        internal static let value = L10n.tr("Localizable", "AboutStore.facts.shops.value", fallback: "3")
+      }
+      internal enum Years {
+        /// лет заботы
+        internal static let caption = L10n.tr("Localizable", "AboutStore.facts.years.caption", fallback: "лет заботы")
+        /// 12
+        internal static let value = L10n.tr("Localizable", "AboutStore.facts.years.value", fallback: "12")
+      }
+    }
+  }
   internal enum Catalog {
     /// В каталоге пока нет товаров
     internal static let empty = L10n.tr("Localizable", "Catalog.empty", fallback: "В каталоге пока нет товаров")

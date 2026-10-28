@@ -76,3 +76,21 @@
 "Product.details.packageWeight" = "Вес упаковки";
 "Product.details.weight" = "%@ кг";
 "Product.details.title" = "Карточка товара";
+
+// About store
+"AboutStore.title" = "О магазине";
+"AboutStore.tagline" = "Место, где знают:\nпитомец — часть семьи.";
+"AboutStore.description" = "Помогаем заботиться о домашних любимцах: выбираем товары, делимся полезными советами и встречаем вас в наших магазинах.";
+"AboutStore.facts.years.value" = "12";
+"AboutStore.facts.years.caption" = "лет заботы";
+"AboutStore.facts.shops.value" = "3";
+"AboutStore.facts.shops.caption" = "магазина рядом";
+"AboutStore.facts.love.value" = "100%%";
+"AboutStore.facts.love.caption" = "любви к питомцам";
+"AboutStore.contacts.title" = "Свяжитесь с нами";
+"AboutStore.contacts.phone" = "+7 (495) 000-00-00";
+"AboutStore.contacts.hours" = "Ежедневно, 10:00–21:00";
+"AboutStore.contacts.email" = "hello@lapka.example";
+"AboutStore.contacts.emailSubtitle" = "Вопросы и предложения";
+"AboutStore.contacts.addresses" = "Адреса магазинов";
+"AboutStore.disclaimer" = "«Лапка» — вымышленный магазин, созданный для демонстрационного проекта. Название, контакты и сведения о магазине приведены в качестве примера. Любые совпадения с реальными организациями, брендами или лицами случайны. Проект не связан с такими организациями и не является их официальным приложением.";
