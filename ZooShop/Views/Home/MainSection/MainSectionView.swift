@@ -91,8 +91,7 @@ struct MainSectionView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text(animalType.catalogTitle)
-                        .font(.title2)
-                        .fontWeight(.bold)
+                        .font(.headline)
                         .foregroundStyle(Colors.Content.primary.swiftUIColor)
                         .accessibilityAddTraits(.isHeader)
                 }
@@ -110,8 +109,7 @@ struct MainSectionView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text(L10n.Favorites.title)
-                        .font(.title2)
-                        .fontWeight(.bold)
+                        .font(.headline)
                         .foregroundStyle(Colors.Content.primary.swiftUIColor)
                         .accessibilityAddTraits(.isHeader)
                 }

@@ -47,8 +47,7 @@ struct PetCategoriesView: View {
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         Text(animalType.catalogTitle)
-                            .font(.title2)
-                            .fontWeight(.bold)
+                            .font(.headline)
                             .foregroundStyle(Colors.Content.primary.swiftUIColor)
                             .accessibilityAddTraits(.isHeader)
                     }
