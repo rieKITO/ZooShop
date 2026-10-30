@@ -12,18 +12,21 @@ struct ListRowView: ListGroupContent {
     // MARK: - Init Properties
 
     let title: String
-    let systemImage: String
+    var systemImage: String? = nil
     var showsChevron: Bool = true
     var subtitle: String? = nil
+    var value: String? = nil
     
     // MARK: - Body
 
     var body: some View {
         HStack(spacing: 16) {
-            Image(systemName: systemImage)
-                .font(.title2)
-                .foregroundStyle(Colors.Content.accent.swiftUIColor)
-                .accessibilityHidden(true)
+            if let systemImage {
+                Image(systemName: systemImage)
+                    .font(.title2)
+                    .foregroundStyle(Colors.Content.accent.swiftUIColor)
+                    .accessibilityHidden(true)
+            }
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(.body)
@@ -37,6 +40,12 @@ struct ListRowView: ListGroupContent {
             }
             .multilineTextAlignment(.leading)
             Spacer()
+            if let value {
+                Text(value)
+                    .font(.caption)
+                    .foregroundStyle(Colors.Content.secondary.swiftUIColor)
+                    .multilineTextAlignment(.trailing)
+            }
             if showsChevron {
                 Image(systemName: "chevron.right")
                     .font(.system(size: 14))
@@ -45,8 +54,7 @@ struct ListRowView: ListGroupContent {
                     .accessibilityHidden(true)
             }
         }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 20)
+        .padding(20)
         .accessibilityElement(children: .combine)
     }
 }
@@ -60,4 +68,14 @@ struct ListRowView: ListGroupContent {
         subtitle: "Вопросы и предложения и текст на 2 строки"
     )
     .padding()
+}
+
+#Preview("With value") {
+    ListRowView(title: "Версия", showsChevron: false, value: "1.0")
+        .padding()
+}
+
+#Preview("Without image") {
+    ListRowView(title: "Подробнее")
+        .padding()
 }
