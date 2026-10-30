@@ -9,6 +9,11 @@ import SwiftUI
 
 struct SettingsView: View {
 
+    // MARK: - State
+
+    @State
+    private var isPrivacyPresented = false
+
     // MARK: - Environment
 
     @Environment(AppThemeManager.self)
@@ -21,17 +26,13 @@ struct SettingsView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                Text(L10n.Settings.Appearance.title.uppercased())
-                    .font(.caption)
-                    .tracking(1.5)
-                    .foregroundStyle(Colors.Content.secondary.swiftUIColor)
-                    .padding(.horizontal, 4)
-                    .accessibilityAddTraits(.isHeader)
-                appearanceOptions
+            VStack(alignment: .leading, spacing: 32) {
+                appearanceSection
+                applicationSection
             }
             .padding(.horizontal, 16)
             .padding(.top, 24)
+            .padding(.bottom, 24)
         }
         .contentMargins(.bottom, tabBarContentInset, for: .scrollContent)
         .background(
@@ -40,6 +41,9 @@ struct SettingsView: View {
         )
         .navigationTitle(L10n.More.settings)
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $isPrivacyPresented) {
+            PrivacySheetView()
+        }
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(L10n.More.settings)
@@ -54,6 +58,41 @@ struct SettingsView: View {
 // MARK: - Subviews
 
 private extension SettingsView {
+
+    var appearanceSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            sectionTitle(L10n.Settings.Appearance.title)
+            appearanceOptions
+        }
+    }
+
+    var applicationSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            sectionTitle(L10n.Settings.Application.title)
+
+            ListGroupView(rows: [
+                ListRowView(
+                    title: L10n.Settings.Application.version,
+                    showsChevron: false,
+                    value: AppInfo.version
+                ),
+                Button {
+                    isPrivacyPresented = true
+                } label: {
+                    ListRowView(title: L10n.Settings.Privacy.title)
+                }
+            ])
+        }
+    }
+
+    func sectionTitle(_ title: String) -> some View {
+        Text(title.uppercased())
+            .font(.caption)
+            .tracking(1.5)
+            .foregroundStyle(Colors.Content.secondary.swiftUIColor)
+            .padding(.horizontal, 4)
+            .accessibilityAddTraits(.isHeader)
+    }
 
     var appearanceOptions: some View {
         ListGroupView(rows:
@@ -72,12 +111,16 @@ private extension SettingsView {
 // MARK: - Preview
 
 #Preview("Light Theme") {
-    SettingsView()
-        .environment(AppThemeManager())
+    NavigationStack {
+        SettingsView()
+            .environment(AppThemeManager())
+    }
 }
 
 #Preview("Dark Theme") {
-    SettingsView()
-        .environment(AppThemeManager())
-        .preferredColorScheme(.dark)
+    NavigationStack {
+        SettingsView()
+            .environment(AppThemeManager())
+    }
+    .preferredColorScheme(.dark)
 }

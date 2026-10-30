@@ -22,6 +22,12 @@
 "Settings.appearance.light" = "Светлая";
 "Settings.appearance.dark" = "Тёмная";
 "Settings.appearance.system" = "Как на устройстве";
+"Settings.application.title" = "Приложение";
+"Settings.application.version" = "Версия";
+"Settings.privacy.title" = "Конфиденциальность";
+"Settings.privacy.message" = "Избранное и настройки сохраняются локально на вашем устройстве. Для загрузки каталога и изображений приложение обращается к серверу.";
+"Settings.privacy.confirm" = "Понятно";
+"Common.close" = "Закрыть";
 
 // TabBar
 "TabBar.category.main" = "Главная";

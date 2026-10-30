@@ -76,6 +76,8 @@ internal enum L10n {
   internal enum Common {
     /// Все
     internal static let all = L10n.tr("Localizable", "Common.all", fallback: "Все")
+    /// Закрыть
+    internal static let close = L10n.tr("Localizable", "Common.close", fallback: "Закрыть")
     /// ОК
     internal static let ok = L10n.tr("Localizable", "Common.ok", fallback: "ОК")
     /// Повторить
@@ -201,6 +203,20 @@ internal enum L10n {
       internal static let system = L10n.tr("Localizable", "Settings.appearance.system", fallback: "Как на устройстве")
       /// Оформление
       internal static let title = L10n.tr("Localizable", "Settings.appearance.title", fallback: "Оформление")
+    }
+    internal enum Application {
+      /// Приложение
+      internal static let title = L10n.tr("Localizable", "Settings.application.title", fallback: "Приложение")
+      /// Версия
+      internal static let version = L10n.tr("Localizable", "Settings.application.version", fallback: "Версия")
+    }
+    internal enum Privacy {
+      /// Понятно
+      internal static let confirm = L10n.tr("Localizable", "Settings.privacy.confirm", fallback: "Понятно")
+      /// Избранное и настройки сохраняются локально на вашем устройстве. Для загрузки каталога и изображений приложение обращается к серверу.
+      internal static let message = L10n.tr("Localizable", "Settings.privacy.message", fallback: "Избранное и настройки сохраняются локально на вашем устройстве. Для загрузки каталога и изображений приложение обращается к серверу.")
+      /// Конфиденциальность
+      internal static let title = L10n.tr("Localizable", "Settings.privacy.title", fallback: "Конфиденциальность")
     }
   }
   internal enum TabBar {
