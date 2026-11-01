@@ -18,6 +18,9 @@ struct HomeView: View {
 
     @State
     private var selectedTab: HomeTab = .main
+
+    @State
+    private var storesViewModel = AppDI.makeStoresViewModel()
     
     // MARK: - Body
 
@@ -73,7 +76,7 @@ private extension HomeView {
                 favorites: viewModel.favorites
             )
         case .shops:
-            Text(selectedTab.title)
+            StoresSectionView(viewModel: storesViewModel)
         case .more:
             NavigationStack {
                 MoreSectionView(

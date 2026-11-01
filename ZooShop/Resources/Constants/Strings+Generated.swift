@@ -59,16 +59,6 @@ internal enum L10n {
     /// В каталоге пока нет товаров
     internal static let empty = L10n.tr("Localizable", "Catalog.empty", fallback: "В каталоге пока нет товаров")
     internal enum Error {
-      /// Не удалось загрузить товары: HTTP %d.
-      internal static func httpStatus(_ p1: Int) -> String {
-        return L10n.tr("Localizable", "Catalog.error.httpStatus", p1, fallback: "Не удалось загрузить товары: HTTP %d.")
-      }
-      /// ID товаров должны быть непустыми и уникальными.
-      internal static let invalidIdentifiers = L10n.tr("Localizable", "Catalog.error.invalidIdentifiers", fallback: "ID товаров должны быть непустыми и уникальными.")
-      /// В каталоге неверный рейтинг или адрес изображения.
-      internal static let invalidProductData = L10n.tr("Localizable", "Catalog.error.invalidProductData", fallback: "В каталоге неверный рейтинг или адрес изображения.")
-      /// Сервер вернул некорректный ответ.
-      internal static let invalidResponse = L10n.tr("Localizable", "Catalog.error.invalidResponse", fallback: "Сервер вернул некорректный ответ.")
       /// Не удалось загрузить товары
       internal static let title = L10n.tr("Localizable", "Catalog.error.title", fallback: "Не удалось загрузить товары")
     }
@@ -243,6 +233,24 @@ internal enum L10n {
       internal static let more = L10n.tr("Localizable", "TabBar.category.more", fallback: "Ещё")
       /// Магазины
       internal static let shops = L10n.tr("Localizable", "TabBar.category.shops", fallback: "Магазины")
+    }
+  }
+  internal enum Stores {
+    /// Закрыт сейчас
+    internal static let closed = L10n.tr("Localizable", "stores.closed", fallback: "Закрыт сейчас")
+    /// Ежедневно, %@
+    internal static func dailyHours(_ p1: Any) -> String {
+      return L10n.tr("Localizable", "stores.dailyHours", String(describing: p1), fallback: "Ежедневно, %@")
+    }
+    /// Магазинов пока нет
+    internal static let empty = L10n.tr("Localizable", "stores.empty", fallback: "Магазинов пока нет")
+    /// Открыт сейчас
+    internal static let `open` = L10n.tr("Localizable", "stores.open", fallback: "Открыт сейчас")
+    /// Наши магазины
+    internal static let title = L10n.tr("Localizable", "stores.title", fallback: "Наши магазины")
+    internal enum Error {
+      /// Не удалось загрузить магазины
+      internal static let title = L10n.tr("Localizable", "stores.error.title", fallback: "Не удалось загрузить магазины")
     }
   }
 }

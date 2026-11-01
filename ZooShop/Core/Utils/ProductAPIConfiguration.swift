@@ -1,5 +1,5 @@
 //
-//  ProductAPIConfiguration.swift
+//  APIConfiguration.swift
 //  ZooShop
 //
 //  Created by Aleksandr Potemkin on 10.10.2026.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ProductAPIConfiguration {
+enum APIConfiguration {
     static let baseURL: URL = {
         guard
             let url = URL(string: "http://localhost:8080"),
@@ -15,10 +15,14 @@ enum ProductAPIConfiguration {
             ["http", "https"].contains(scheme),
             url.host != nil
         else {
-            preconditionFailure("Invalid base URL in ProductAPIConfiguration")
+            preconditionFailure("Invalid base URL in APIConfiguration")
         }
         return url
     }()
+
+    static var storesURL: URL {
+        baseURL.appendingPathComponent("stores", isDirectory: true)
+    }
 
     static var productsURL: URL {
         baseURL.appendingPathComponent("products", isDirectory: true)

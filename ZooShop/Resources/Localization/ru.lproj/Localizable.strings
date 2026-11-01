@@ -37,9 +37,6 @@
 
 // Catalog and favorites
 "Catalog.error.title" = "Не удалось загрузить товары";
-"Catalog.error.invalidIdentifiers" = "ID товаров должны быть непустыми и уникальными.";
-"Catalog.error.invalidResponse" = "Сервер вернул некорректный ответ.";
-"Catalog.error.httpStatus" = "Не удалось загрузить товары: HTTP %d.";
 "Favorites.add" = "Добавить в избранное";
 "Favorites.remove" = "Убрать из избранного";
 "Favorites.error.missingModel" = "Модель Core Data не найдена в приложении.";
@@ -53,7 +50,6 @@
 
 "Product.image.retry" = "Повторить загрузку";
 "Product.rating" = "Рейтинг %.1f из 5";
-"Catalog.error.invalidProductData" = "В каталоге неверный рейтинг или адрес изображения.";
 
 // Error
 "Common.error.title" = "Что-то пошло не так";
@@ -100,6 +96,16 @@
 "AboutStore.contacts.emailSubtitle" = "Вопросы и предложения";
 "AboutStore.contacts.addresses" = "Адреса магазинов";
 "AboutStore.disclaimer" = "«Лапка» — вымышленный магазин, созданный для демонстрационного проекта. Название, контакты и сведения о магазине приведены в качестве примера. Любые совпадения с реальными организациями, брендами или лицами случайны. Проект не связан с такими организациями и не является их официальным приложением.";
+
+// Stores
+"stores.title" = "Наши магазины";
+"stores.open" = "Открыт сейчас";
+"stores.closed" = "Закрыт сейчас";
+"stores.dailyHours" = "Ежедневно, %@";
+
+// Stores loading
+"stores.empty" = "Магазинов пока нет";
+"stores.error.title" = "Не удалось загрузить магазины";
 
 // Network
 "Network.error.invalidResponse" = "Сервер вернул некорректный ответ.";

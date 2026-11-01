@@ -23,6 +23,12 @@ enum AppDI {
         )
     }()
 
+    static func makeStoresViewModel() -> StoresViewModel {
+        StoresViewModel(repository: RemoteStoreRepository(
+            storesURL: APIConfiguration.storesURL
+        ))
+    }
+
     static func makeMainSectionViewModel() -> MainSectionViewModel {
         let favorites: FavoritesViewModel
         do {
@@ -33,7 +39,7 @@ enum AppDI {
 
         return MainSectionViewModel(
             catalog: CatalogViewModel(repository: RemoteProductRepository(
-                productsURL: ProductAPIConfiguration.productsURL
+                productsURL: APIConfiguration.productsURL
             )),
             favorites: favorites
         )
