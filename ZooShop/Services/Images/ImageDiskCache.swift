@@ -1,10 +1,3 @@
-//
-//  ImageDiskCache.swift
-//  ZooShop
-//
-//  Created by Aleksandr Potemkin on 22.10.2026.
-//
-
 import CryptoKit
 import Foundation
 import OSLog

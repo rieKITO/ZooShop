@@ -1,10 +1,3 @@
-//
-//  StoresViewModel.swift
-//  ZooShop
-//
-//  Created by Aleksandr Potemkin on 30.10.2026.
-//
-
 import Combine
 import Foundation
 import Observation

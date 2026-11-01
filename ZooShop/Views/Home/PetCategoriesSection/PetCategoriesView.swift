@@ -1,10 +1,3 @@
-//
-//  PetCategoriesView.swift
-//  ZooShop
-//
-//  Created by Aleksandr Potemkin on 19.10.2026.
-//
-
 import SwiftUI
 
 struct PetCategoriesView: View {

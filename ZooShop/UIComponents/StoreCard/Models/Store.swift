@@ -1,10 +1,3 @@
-//
-//  Store.swift
-//  ZooShop
-//
-//  Created by Aleksandr Potemkin on 30.10.2026.
-//
-
 import Foundation
 
 struct Store: Identifiable, Decodable {

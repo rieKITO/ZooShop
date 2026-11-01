@@ -1,10 +1,3 @@
-//
-//  SelectionRowView.swift
-//  ZooShop
-//
-//  Created by Aleksandr Potemkin on 27.10.2026.
-//
-
 import SwiftUI
 
 struct SelectionRowView: ListGroupContent {

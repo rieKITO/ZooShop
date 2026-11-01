@@ -1,10 +1,3 @@
-//
-//  DailyWorkingHours.swift
-//  ZooShop
-//
-//  Created by Aleksandr Potemkin on 30.10.2026.
-//
-
 import Foundation
 
 /// A daily schedule in the store's local time. Equal endpoints mean closed.

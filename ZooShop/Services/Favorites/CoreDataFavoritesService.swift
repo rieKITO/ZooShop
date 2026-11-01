@@ -1,10 +1,3 @@
-//
-//  CoreDataFavoritesService.swift
-//  ZooShop
-//
-//  Created by Aleksandr Potemkin on 09.10.2026.
-//
-
 import CoreData
 
 @MainActor

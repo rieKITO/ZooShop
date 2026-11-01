@@ -1,10 +1,3 @@
-//
-//  StoreCardView.swift
-//  ZooShop
-//
-//  Created by Aleksandr Potemkin on 30.10.2026.
-//
-
 import SwiftUI
 
 struct StoreCardView: View {

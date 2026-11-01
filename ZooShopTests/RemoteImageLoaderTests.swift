@@ -1,10 +1,3 @@
-//
-//  RemoteImageLoaderTests.swift
-//  ZooShop
-//
-// Created by Aleksandr Potemkin on 22.10.2026.
-//
-
 import Combine
 import UIKit
 import XCTest

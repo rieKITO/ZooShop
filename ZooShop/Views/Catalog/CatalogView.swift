@@ -1,10 +1,3 @@
-//
-//  CatalogView.swift
-//  ZooShop
-//
-//  Created by Aleksandr Potemkin on 11.10.2026.
-//
-
 import SwiftUI
 
 struct CatalogView: View {

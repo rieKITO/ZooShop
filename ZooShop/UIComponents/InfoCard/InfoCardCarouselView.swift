@@ -1,10 +1,3 @@
-//
-//  InfoCardCarouselView.swift
-//  ZooShop
-//
-//  Created by Aleksandr Potemkin on 06.10.2026.
-//
-
 import SwiftUI
 
 struct InfoCardCarouselView: View {

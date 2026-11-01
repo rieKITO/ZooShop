@@ -1,10 +1,3 @@
-//
-//  ErrorStateView.swift
-//  ZooShop
-//
-//  Created by Aleksandr Potemkin on 13.10.2026.
-//
-
 import SwiftUI
 
 struct ErrorStateView: View {

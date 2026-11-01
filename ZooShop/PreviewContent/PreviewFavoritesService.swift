@@ -1,10 +1,3 @@
-//
-//  PreviewFavoritesService.swift
-//  ZooShop
-//
-// Created by Aleksandr Potemkin on 13.10.2026.
-//
-
 #if DEBUG
 @MainActor
 final class PreviewFavoritesService: FavoritesService {

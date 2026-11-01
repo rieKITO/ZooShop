@@ -1,10 +1,3 @@
-//
-//  AnimalRowView.swift
-//  ZooShop
-//
-//  Created by Aleksandr Potemkin on 14.10.2026.
-//
-
 import SwiftUI
 
 struct AnimalRowView: View {

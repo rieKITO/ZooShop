@@ -1,10 +1,3 @@
-//
-//  ContentHeightSheetModifier.swift
-//  ZooShop
-//
-//  Created by Aleksandr Potemkin on 29.10.2026.
-//
-
 import SwiftUI
 
 private struct ContentHeightSheetModifier: ViewModifier {

@@ -1,10 +1,3 @@
-//
-//  ProductItem.swift
-//  ZooShop
-//
-//  Created by Aleksandr Potemkin on 07.10.2026.
-//
-
 import Foundation
 
 struct ProductItem: Identifiable, Codable, Hashable {

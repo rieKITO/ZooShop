@@ -1,10 +1,3 @@
-//
-//  ListGroupContent.swift
-//  ZooShop
-//
-//  Created by Aleksandr Potemkin on 28.10.2026.
-//
-
 import SwiftUI
 
 /// A row supported by a list group.
