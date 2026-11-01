@@ -62,7 +62,17 @@ private extension SettingsView {
     var appearanceSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             sectionTitle(L10n.Settings.Appearance.title)
-            appearanceOptions
+            
+            ListGroupView(rows:
+                AppTheme.allCases.map { theme in
+                    SelectionRowView(
+                        title: theme.displayName,
+                        isSelected: appThemeManager.selectedTheme == theme
+                    ) {
+                        appThemeManager.updateTheme(theme)
+                    }
+                }
+            )
         }
     }
 
@@ -94,18 +104,6 @@ private extension SettingsView {
             .accessibilityAddTraits(.isHeader)
     }
 
-    var appearanceOptions: some View {
-        ListGroupView(rows:
-            AppTheme.allCases.map { theme in
-                SelectionRowView(
-                    title: theme.displayName,
-                    isSelected: appThemeManager.selectedTheme == theme
-                ) {
-                    appThemeManager.updateTheme(theme)
-                }
-            }
-        )
-    }
 }
 
 // MARK: - Preview
