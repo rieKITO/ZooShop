@@ -48,33 +48,14 @@ struct RemoteProductRepository: ProductRepository {
                         && ["http", "https"].contains($0.imageURL.scheme?.lowercased() ?? "")
                         && $0.imageURL.host != nil
                 }) else {
-                    throw NetworkError.invalidProductData
+                    throw NetworkError.invalidData
                 }
                 return products
             }
-            .eraseToAnyPublisher()
-    }
-    
-    // MARK: - Error
-
-    enum NetworkError: LocalizedError {
-        case invalidResponse
-        case httpStatus(Int)
-        case invalidIdentifiers
-        case invalidProductData
-
-        var errorDescription: String? {
-            switch self {
-            case .invalidIdentifiers:
-                return String(localized: "Catalog.error.invalidIdentifiers")
-            case .invalidProductData:
-                return String(localized: "Catalog.error.invalidProductData")
-            case .invalidResponse:
-                return String(localized: "Catalog.error.invalidResponse")
-            case .httpStatus(let status):
-                return String(format: String(localized: "Catalog.error.httpStatus"), status)
+            .mapError { error in
+                error is DecodingError ? NetworkError.invalidData : error
             }
-        }
+            .eraseToAnyPublisher()
     }
 
 }

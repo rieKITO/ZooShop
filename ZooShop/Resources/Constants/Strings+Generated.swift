@@ -127,6 +127,20 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "More.card.title", fallback: "Счастливый питомец.\nСчастливы вы.")
     }
   }
+  internal enum Network {
+    internal enum Error {
+      /// Ошибка сервера (HTTP %d).
+      internal static func httpStatus(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "Network.error.httpStatus", p1, fallback: "Ошибка сервера (HTTP %d).")
+      }
+      /// Сервер вернул некорректные данные.
+      internal static let invalidData = L10n.tr("Localizable", "Network.error.invalidData", fallback: "Сервер вернул некорректные данные.")
+      /// Идентификаторы должны быть непустыми и уникальными.
+      internal static let invalidIdentifiers = L10n.tr("Localizable", "Network.error.invalidIdentifiers", fallback: "Идентификаторы должны быть непустыми и уникальными.")
+      /// Сервер вернул некорректный ответ.
+      internal static let invalidResponse = L10n.tr("Localizable", "Network.error.invalidResponse", fallback: "Сервер вернул некорректный ответ.")
+    }
+  }
   internal enum PetCategories {
     /// Подберём питание для каждого питомца
     internal static let note = L10n.tr("Localizable", "PetCategories.note", fallback: "Подберём питание для каждого питомца")
