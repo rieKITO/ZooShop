@@ -16,6 +16,7 @@ struct ProductDetailsView: View {
 
     let product: ProductItem
     let favorites: FavoritesViewModel
+    let onShowShops: () -> Void
 
     // MARK: - Body
 
@@ -71,8 +72,10 @@ private extension ProductDetailsView {
     }
 
     var purchaseActions: some View {
-        VStack(spacing: 16) {
-            Button { } label: {
+        HStack(spacing: 8) {
+            Button {
+                onShowShops()
+            } label: {
                 Label(L10n.Product.Details.whereToBuy, systemImage: "mappin.and.ellipse")
                     .font(.headline)
                     .foregroundStyle(Colors.Content.onAccent.swiftUIColor)
@@ -83,17 +86,7 @@ private extension ProductDetailsView {
                     )
             }
 
-            HStack(spacing: 8) {
-                Button { } label: {
-                    Label(L10n.Product.Details.shoppingList, systemImage: "bag")
-                        .font(.subheadline)
-                        .foregroundStyle(Colors.Content.primary.swiftUIColor)
-                        .frame(maxWidth: .infinity, minHeight: 48)
-                        .background(actionBackground)
-                }
-
-                favoriteButton
-            }
+            favoriteButton
         }
         .buttonStyle(.plain)
     }
@@ -109,7 +102,7 @@ private extension ProductDetailsView {
                         ? Colors.Brand.primary.swiftUIColor
                         : Colors.Content.secondary.swiftUIColor
                 )
-                .frame(width: 48, height: 48)
+                .frame(width: 62, height: 62)
                 .background(actionBackground)
         }
         .disabled(!favorites.isAvailable)
@@ -174,14 +167,16 @@ private extension ProductDetailsView {
 #Preview("Light Theme") {
     ProductDetailsView(
         product: PreviewProductRepository.products[0],
-        favorites: FavoritesViewModel(service: PreviewFavoritesService())
+        favorites: FavoritesViewModel(service: PreviewFavoritesService()),
+        onShowShops: {}
     )
 }
 
 #Preview("Dark Theme") {
     ProductDetailsView(
         product: PreviewProductRepository.products[0],
-        favorites: FavoritesViewModel(service: PreviewFavoritesService())
+        favorites: FavoritesViewModel(service: PreviewFavoritesService()),
+        onShowShops: {}
     )
     .preferredColorScheme(.dark)
 }

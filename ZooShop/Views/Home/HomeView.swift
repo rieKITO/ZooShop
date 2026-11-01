@@ -67,13 +67,19 @@ private extension HomeView {
                     viewModel: viewModel,
                     onShowAllPetCategories: {
                         selectedTab = .catalog
+                    },
+                    onShowShops: {
+                        selectedTab = .shops
                     }
                 )
             }
         case .catalog:
             PetCategoriesView(
                 viewModel: viewModel.catalog,
-                favorites: viewModel.favorites
+                favorites: viewModel.favorites,
+                onShowShops: {
+                    selectedTab = .shops
+                }
             )
         case .shops:
             StoresSectionView(viewModel: storesViewModel)

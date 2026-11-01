@@ -16,6 +16,7 @@ struct MainSectionView: View {
     
     let viewModel: MainSectionViewModel
     let onShowAllPetCategories: () -> Void
+    let onShowShops: () -> Void
 
     private let petCategories: [ProductItem.AnimalType] = [.dog, .cat, .smallPet, .bird]
 
@@ -77,12 +78,17 @@ struct MainSectionView: View {
         }
         .toolbar(.hidden, for: .navigationBar)
         .navigationDestination(item: $selectedProduct) { product in
-            ProductDetailsView(product: product, favorites: viewModel.favorites)
+            ProductDetailsView(
+                product: product,
+                favorites: viewModel.favorites,
+                onShowShops: onShowShops
+            )
         }
         .navigationDestination(for: ProductItem.AnimalType.self) { animalType in
             CatalogView(
                 viewModel: viewModel.catalog,
                 favorites: viewModel.favorites,
+                onShowShops: onShowShops,
                 filter: .animal(animalType)
             )
             .navigationTitle(animalType.catalogTitle)
@@ -101,6 +107,7 @@ struct MainSectionView: View {
             CatalogView(
                 viewModel: viewModel.catalog,
                 favorites: viewModel.favorites,
+                onShowShops: onShowShops,
                 filter: .favorites
             )
             .navigationTitle(L10n.Favorites.title)

@@ -16,6 +16,7 @@ struct PetCategoriesView: View {
     
     let viewModel: CatalogViewModel
     let favorites: FavoritesViewModel
+    let onShowShops: () -> Void
     
     // MARK: - Body
 
@@ -40,6 +41,7 @@ struct PetCategoriesView: View {
                 CatalogView(
                     viewModel: viewModel,
                     favorites: favorites,
+                    onShowShops: onShowShops,
                     filter: .animal(animalType)
                 )
                 .navigationTitle(animalType.catalogTitle)
@@ -107,14 +109,16 @@ private extension PetCategoriesView {
 #Preview("Light Theme") {
     PetCategoriesView(
         viewModel: CatalogViewModel(repository: PreviewProductRepository()),
-        favorites: FavoritesViewModel(service: PreviewFavoritesService())
+        favorites: FavoritesViewModel(service: PreviewFavoritesService()),
+        onShowShops: {}
     )
 }
 
 #Preview("Dark Theme") {
     PetCategoriesView(
         viewModel: CatalogViewModel(repository: PreviewProductRepository()),
-        favorites: FavoritesViewModel(service: PreviewFavoritesService())
+        favorites: FavoritesViewModel(service: PreviewFavoritesService()),
+        onShowShops: {}
     )
     .preferredColorScheme(.dark)
 }

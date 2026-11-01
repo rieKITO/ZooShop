@@ -22,6 +22,7 @@ struct CatalogView: View {
     
     let viewModel: CatalogViewModel
     let favorites: FavoritesViewModel
+    let onShowShops: () -> Void
     var filter: Filter = .all
     
     // MARK: - State
@@ -58,7 +59,11 @@ struct CatalogView: View {
             }
         }
         .navigationDestination(item: $selectedProduct) { product in
-            ProductDetailsView(product: product, favorites: favorites)
+            ProductDetailsView(
+                product: product,
+                favorites: favorites,
+                onShowShops: onShowShops
+            )
         }
     }
 }
@@ -138,7 +143,8 @@ private extension CatalogView {
         
         CatalogView(
             viewModel: CatalogViewModel(repository: PreviewProductRepository()),
-            favorites: FavoritesViewModel(service: PreviewFavoritesService())
+            favorites: FavoritesViewModel(service: PreviewFavoritesService()),
+            onShowShops: {}
         )
     }
 }
@@ -150,7 +156,8 @@ private extension CatalogView {
         
         CatalogView(
             viewModel: CatalogViewModel(repository: PreviewProductRepository()),
-            favorites: FavoritesViewModel(service: PreviewFavoritesService())
+            favorites: FavoritesViewModel(service: PreviewFavoritesService()),
+            onShowShops: {}
         )
     }
     .preferredColorScheme(.dark)
