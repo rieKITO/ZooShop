@@ -38,8 +38,11 @@ struct StoresSectionView: View {
                             Spacer(minLength: 0)
                         } else {
                             if viewModel.isLoading {
-                                ProgressView()
-                                    .frame(maxWidth: .infinity)
+                                LazyVStack(spacing: 24) {
+                                    ForEach(0..<3, id: \.self) { _ in
+                                        StoreCardShimmerView()
+                                    }
+                                }
                             } else if viewModel.stores.isEmpty {
                                 Text(L10n.Stores.empty)
                                     .frame(maxWidth: .infinity)

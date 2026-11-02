@@ -174,8 +174,7 @@ private extension MainSectionView {
             }
 
             if viewModel.isLoading {
-                ProgressView()
-                    .frame(maxWidth: .infinity)
+                ProductShimmerGridView(count: 2)
             } else if let catalogError = viewModel.errorMessage {
                 ErrorStateView(
                     title: L10n.Catalog.Error.title,

@@ -68,7 +68,7 @@ private extension CatalogView {
     @ViewBuilder
     var catalogContent: some View {
         if viewModel.isLoading {
-            ProgressView()
+            ProductShimmerGridView()
         } else if let errorMessage = viewModel.errorMessage {
             ErrorStateView(
                 title: L10n.Catalog.Error.title,
