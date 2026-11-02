@@ -22,6 +22,9 @@ final class StoresViewModel {
 
     @ObservationIgnored
     private var loadingSubscription: AnyCancellable?
+
+    @ObservationIgnored
+    private var refreshContinuations: [CheckedContinuation<Void, Never>] = []
     
     // MARK: - Initialization
 
@@ -39,6 +42,14 @@ final class StoresViewModel {
         loadStores()
     }
 
+    /// Waits for the active request, or starts a refresh if none is running.
+    func refresh() async {
+        await withCheckedContinuation { continuation in
+            refreshContinuations.append(continuation)
+            loadStores()
+        }
+    }
+
     func loadStores() {
         guard loadingSubscription == nil else {
             return
@@ -46,6 +57,8 @@ final class StoresViewModel {
 
         isLoading = true
         errorMessage = nil
+        stores = []
+        hasLoaded = false
 
         loadingSubscription = repository.loadStores()
             .receive(on: DispatchQueue.main)
@@ -59,6 +72,12 @@ final class StoresViewModel {
 
                 if case .failure(let error) = completion {
                     errorMessage = error.localizedDescription
+                }
+
+                let continuations = refreshContinuations
+                refreshContinuations.removeAll()
+                for continuation in continuations {
+                    continuation.resume()
                 }
             } receiveValue: { [weak self] stores in
                 self?.stores = stores

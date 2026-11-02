@@ -67,6 +67,9 @@ struct MainSectionView: View {
                 .padding(.horizontal, 16)
             }
             .contentMargins(.bottom, tabBarContentInset, for: .scrollContent)
+            .refreshable {
+                await viewModel.catalog.refresh()
+            }
             .scrollClipDisabled()
         }
         .toolbar(.hidden, for: .navigationBar)

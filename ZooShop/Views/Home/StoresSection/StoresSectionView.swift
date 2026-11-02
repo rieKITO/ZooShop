@@ -64,6 +64,9 @@ struct StoresSectionView: View {
                     .padding(.bottom, 24)
                 }
                 .contentMargins(.bottom, tabBarContentInset, for: .scrollContent)
+                .refreshable {
+                    await viewModel.refresh()
+                }
             }
         }
         .background(

@@ -44,6 +44,9 @@ struct CatalogView: View {
                             .padding(.bottom, 8)
                     }
                     .contentMargins(.bottom, tabBarContentInset, for: .scrollContent)
+                    .refreshable {
+                        await viewModel.refresh()
+                    }
                 }
             }
             .foregroundStyle(Colors.Content.primary.swiftUIColor)
