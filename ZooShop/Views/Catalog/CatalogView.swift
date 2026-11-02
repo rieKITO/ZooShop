@@ -54,6 +54,9 @@ struct CatalogView: View {
                 viewModel.loadIfNeeded()
             }
         }
+        .task {
+            favorites.loadIfNeeded()
+        }
         .navigationDestination(item: $selectedProduct) { product in
             ProductDetailsView(
                 product: product,

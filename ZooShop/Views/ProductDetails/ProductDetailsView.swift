@@ -35,6 +35,9 @@ struct ProductDetailsView: View {
             .contentMargins(.bottom, tabBarContentInset, for: .scrollContent)
             .scrollIndicators(.hidden)
         }
+        .task {
+            favorites.loadIfNeeded()
+        }
         .navigationTitle(L10n.Product.Details.title)
         .navigationBarTitleDisplayMode(.inline)
     }

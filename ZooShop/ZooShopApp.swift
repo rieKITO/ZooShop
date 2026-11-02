@@ -6,9 +6,6 @@ struct ZooShopApp: App {
     // MARK: - State
     
     @State
-    private var viewModel = AppDI.makeMainSectionViewModel()
-
-    @State
     private var appThemeManager = AppThemeManager()
 
     @State
@@ -25,7 +22,6 @@ struct ZooShopApp: App {
                         .zIndex(1)
                 }
             }
-                .environment(viewModel)
                 .environment(appThemeManager)
                 .preferredColorScheme(appThemeManager.colorScheme)
                 .task {

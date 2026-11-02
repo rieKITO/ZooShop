@@ -2,18 +2,31 @@ import SwiftUI
 
 struct HomeView: View {
 
-    // MARK: - Environment
-    
-    @Environment(MainSectionViewModel.self)
-    private var viewModel
-    
     // MARK: - State
 
     @State
     private var selectedTab: HomeTab = .main
 
     @State
-    private var storesViewModel = AppDI.makeStoresViewModel()
+    private var storesViewModel: StoresViewModel
+
+    @State
+    private var catalog: CatalogViewModel
+
+    @State
+    private var favorites: FavoritesViewModel
+
+    // MARK: - Initialization
+
+    init(
+        catalog: CatalogViewModel? = nil,
+        favorites: FavoritesViewModel? = nil,
+        stores: StoresViewModel? = nil
+    ) {
+        _catalog = State(initialValue: catalog ?? AppDI.makeCatalogViewModel())
+        _favorites = State(initialValue: favorites ?? AppDI.makeFavoritesViewModel())
+        _storesViewModel = State(initialValue: stores ?? AppDI.makeStoresViewModel())
+    }
     
     // MARK: - Body
 
@@ -28,20 +41,23 @@ struct HomeView: View {
         .overlay(alignment: .bottom) {
             CustomTabBarView(tabs: HomeTab.allCases, selectedTab: $selectedTab)
         }
+        .task {
+            favorites.loadIfNeeded()
+        }
         .ignoresSafeArea(.container, edges: .bottom)
         .alert(L10n.Common.Error.title, isPresented: Binding(
             get: {
-                viewModel.favorites.errorMessage != nil
+                favorites.errorMessage != nil
             },
             set: {
                 if !$0 {
-                    viewModel.favorites.errorMessage = nil
+                    favorites.errorMessage = nil
                 }
             }
         )) {
             Button(L10n.Common.ok, role: .cancel) { }
         } message: {
-            Text(viewModel.favorites.errorMessage ?? "")
+            Text(favorites.errorMessage ?? "")
         }
     }
 
@@ -57,7 +73,8 @@ private extension HomeView {
         case .main:
             NavigationStack {
                 MainSectionView(
-                    viewModel: viewModel,
+                    catalog: catalog,
+                    favorites: favorites,
                     onShowAllPetCategories: {
                         selectedTab = .catalog
                     },
@@ -68,8 +85,8 @@ private extension HomeView {
             }
         case .catalog:
             PetCategoriesView(
-                viewModel: viewModel.catalog,
-                favorites: viewModel.favorites,
+                viewModel: catalog,
+                favorites: favorites,
                 onShowShops: {
                     selectedTab = .shops
                 }
@@ -92,18 +109,20 @@ private extension HomeView {
 // MARK: - Preview
 
 #Preview("Light Theme") {
-    HomeView()
-        .environment(AppThemeManager())
-        .environment(MainSectionViewModel(
-            catalog: CatalogViewModel(repository: PreviewProductRepository()), favorites: FavoritesViewModel(service: PreviewFavoritesService())
-        ))
+    HomeView(
+        catalog: CatalogViewModel(repository: PreviewProductRepository()),
+        favorites: FavoritesViewModel(service: PreviewFavoritesService()),
+        stores: StoresViewModel(repository: PreviewStoreRepository())
+    )
+    .environment(AppThemeManager())
 }
 
 #Preview("Dark Theme") {
-    HomeView()
-        .environment(AppThemeManager())
-        .environment(MainSectionViewModel(
-            catalog: CatalogViewModel(repository: PreviewProductRepository()), favorites: FavoritesViewModel(service: PreviewFavoritesService())
-        ))
-        .preferredColorScheme(.dark)
+    HomeView(
+        catalog: CatalogViewModel(repository: PreviewProductRepository()),
+        favorites: FavoritesViewModel(service: PreviewFavoritesService()),
+        stores: StoresViewModel(repository: PreviewStoreRepository())
+    )
+    .environment(AppThemeManager())
+    .preferredColorScheme(.dark)
 }

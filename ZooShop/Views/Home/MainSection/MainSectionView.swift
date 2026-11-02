@@ -7,7 +7,8 @@ struct MainSectionView: View {
 
     // MARK: - Init Properties
     
-    let viewModel: MainSectionViewModel
+    let catalog: CatalogViewModel
+    let favorites: FavoritesViewModel
     let onShowAllPetCategories: () -> Void
     let onShowShops: () -> Void
 
@@ -69,22 +70,25 @@ struct MainSectionView: View {
             .scrollIndicators(.hidden)
             .contentMargins(.bottom, tabBarContentInset, for: .scrollContent)
             .refreshable {
-                await viewModel.catalog.refresh()
+                await catalog.refresh()
             }
             .scrollClipDisabled()
+        }
+        .task {
+            favorites.loadIfNeeded()
         }
         .toolbar(.hidden, for: .navigationBar)
         .navigationDestination(item: $selectedProduct) { product in
             ProductDetailsView(
                 product: product,
-                favorites: viewModel.favorites,
+                favorites: favorites,
                 onShowShops: onShowShops
             )
         }
         .navigationDestination(for: ProductItem.AnimalType.self) { animalType in
             CatalogView(
-                viewModel: viewModel.catalog,
-                favorites: viewModel.favorites,
+                viewModel: catalog,
+                favorites: favorites,
                 onShowShops: onShowShops,
                 filter: .animal(animalType)
             )
@@ -102,8 +106,8 @@ struct MainSectionView: View {
         }
         .navigationDestination(isPresented: $showsAllFavorites) {
             CatalogView(
-                viewModel: viewModel.catalog,
-                favorites: viewModel.favorites,
+                viewModel: catalog,
+                favorites: favorites,
                 onShowShops: onShowShops,
                 filter: .favorites
             )
@@ -120,7 +124,7 @@ struct MainSectionView: View {
             }
         }
         .onAppear {
-            viewModel.loadIfNeeded()
+            catalog.loadIfNeeded()
         }
     }
 }
@@ -171,23 +175,27 @@ private extension MainSectionView {
         }
     }
     
+    var favoriteItems: [ProductItem] {
+        catalog.products.filter { favorites.contains($0.id) }
+    }
+
     var favoriteProducts: some View {
         VStack(alignment: .leading, spacing: 16) {
             SectionHeaderView(title: L10n.Favorites.title) {
                 showsAllFavorites = true
             }
 
-            if viewModel.isLoading {
+            if catalog.isLoading {
                 ProductShimmerGridView(count: 2)
-            } else if let catalogError = viewModel.errorMessage {
+            } else if let catalogError = catalog.errorMessage {
                 ErrorStateView(
                     title: L10n.Catalog.Error.title,
                     description: catalogError,
                     buttonLabel: L10n.Common.retry
                 ) {
-                    viewModel.retry()
+                    catalog.loadProducts()
                 }
-            } else if viewModel.favoriteProducts.isEmpty {
+            } else if favoriteItems.isEmpty {
                 Text(L10n.Favorites.empty)
                     .foregroundStyle(Colors.Content.secondary.swiftUIColor)
             } else {
@@ -199,14 +207,14 @@ private extension MainSectionView {
                         ],
                     spacing: 20
                 ) {
-                    ForEach(viewModel.favoriteProducts.prefix(2)) { product in
+                    ForEach(favoriteItems.prefix(2)) { product in
                         ProductItemView(
                             product: product,
-                            isFavorite: viewModel.favorites.contains(product.id),
-                            isFavoriteEnabled: viewModel.favorites.isAvailable,
+                            isFavorite: favorites.contains(product.id),
+                            isFavoriteEnabled: favorites.isAvailable,
                             onSelect: { selectedProduct = product }
                         ) {
-                            viewModel.toggleFavorite(product.id)
+                            favorites.toggle(product.id)
                         }
                     }
                 }
@@ -236,18 +244,24 @@ private extension MainSectionView {
 // MARK: - Preview
 
 #Preview("Light Theme") {
-    HomeView()
-        .environment(MainSectionViewModel(
+    NavigationStack {
+        MainSectionView(
             catalog: CatalogViewModel(repository: PreviewProductRepository()),
-            favorites: FavoritesViewModel(service: PreviewFavoritesService())
-        ))
+            favorites: FavoritesViewModel(service: PreviewFavoritesService()),
+            onShowAllPetCategories: {},
+            onShowShops: {}
+        )
+    }
 }
 
 #Preview("Dark Theme") {
-    HomeView()
-        .environment(MainSectionViewModel(
+    NavigationStack {
+        MainSectionView(
             catalog: CatalogViewModel(repository: PreviewProductRepository()),
-            favorites: FavoritesViewModel(service: PreviewFavoritesService())
-        ))
-        .preferredColorScheme(.dark)
+            favorites: FavoritesViewModel(service: PreviewFavoritesService()),
+            onShowAllPetCategories: {},
+            onShowShops: {}
+        )
+    }
+    .preferredColorScheme(.dark)
 }

@@ -17,12 +17,30 @@ final class FavoritesViewModel {
     // MARK: - Observation Ignored
 
     @ObservationIgnored
-    private var service: (any FavoritesService)?
+    private let service: (any FavoritesService)?
     
+    @ObservationIgnored
+    private var hasAttemptedLoad = false
+
     // MARK: - Initialization
 
     init(service: any FavoritesService) {
         self.service = service
+    }
+
+    init(unavailableBecause error: Error) {
+        service = nil
+        errorMessage = error.localizedDescription
+    }
+
+    // MARK: - Public Methods
+
+    func loadIfNeeded() {
+        guard !hasAttemptedLoad, let service else {
+            return
+        }
+        hasAttemptedLoad = true
+
         do {
             productIDs = try service.fetchProductIDs()
             isAvailable = true
@@ -30,12 +48,6 @@ final class FavoritesViewModel {
             errorMessage = error.localizedDescription
         }
     }
-
-    init(unavailableBecause error: Error) {
-        errorMessage = error.localizedDescription
-    }
-    
-    // MARK: - Public Methods
 
     func contains(_ productID: String) -> Bool {
         productIDs.contains(productID)

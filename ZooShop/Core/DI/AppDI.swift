@@ -16,25 +16,32 @@ enum AppDI {
         )
     }()
 
-    static func makeStoresViewModel() -> StoresViewModel {
-        StoresViewModel(repository: RemoteStoreRepository(
-            storesURL: APIConfiguration.storesURL
-        ))
+    private static let storeRepository: any StoreRepository = RemoteStoreRepository(
+        storesURL: APIConfiguration.storesURL
+    )
+
+    private static let productRepository: any ProductRepository = RemoteProductRepository(
+        productsURL: APIConfiguration.productsURL
+    )
+
+    private static let favoritesService: Result<any FavoritesService, Error> = Result {
+        try CoreDataFavoritesService()
     }
 
-    static func makeMainSectionViewModel() -> MainSectionViewModel {
-        let favorites: FavoritesViewModel
-        do {
-            favorites = FavoritesViewModel(service: try CoreDataFavoritesService())
-        } catch {
-            favorites = FavoritesViewModel(unavailableBecause: error)
-        }
+    static func makeStoresViewModel() -> StoresViewModel {
+        StoresViewModel(repository: storeRepository)
+    }
 
-        return MainSectionViewModel(
-            catalog: CatalogViewModel(repository: RemoteProductRepository(
-                productsURL: APIConfiguration.productsURL
-            )),
-            favorites: favorites
-        )
+    static func makeCatalogViewModel() -> CatalogViewModel {
+        CatalogViewModel(repository: productRepository)
+    }
+
+    static func makeFavoritesViewModel() -> FavoritesViewModel {
+        switch favoritesService {
+        case .success(let service):
+            FavoritesViewModel(service: service)
+        case .failure(let error):
+            FavoritesViewModel(unavailableBecause: error)
+        }
     }
 }
