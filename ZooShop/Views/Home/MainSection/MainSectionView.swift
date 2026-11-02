@@ -66,6 +66,7 @@ struct MainSectionView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 16)
             }
+            .scrollIndicators(.hidden)
             .contentMargins(.bottom, tabBarContentInset, for: .scrollContent)
             .refreshable {
                 await viewModel.catalog.refresh()

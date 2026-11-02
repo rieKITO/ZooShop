@@ -28,6 +28,7 @@ struct PetCategoriesView: View {
                     .padding(.horizontal, 16)
                     .padding(.vertical, 24)
                 }
+                .scrollIndicators(.hidden)
                 .contentMargins(.bottom, tabBarContentInset, for: .scrollContent)
             }
             .navigationDestination(for: ProductItem.AnimalType.self) { animalType in
